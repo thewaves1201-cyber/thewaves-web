@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE WAVES — 갤러리 관리</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Sans+KR:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body class="admin-body">
+    <div id="login-screen" class="admin-login">
+      <h2>관리자 로그인</h2>
+      <p class="admin-hint" style="margin: 0 0 8px">
+        갤러리 · 로고 · 링크 등을 편집합니다. (이미지 파일 업로드 지원)
+      </p>
+      <form id="login-form">
+        <label for="admin-password">비밀번호</label>
+        <input
+          id="admin-password"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+        />
+        <button type="submit" class="admin-btn admin-btn--primary">
+          들어가기
+        </button>
+      </form>
+      <div id="login-error" class="admin-msg admin-msg--err admin-hidden" style="margin-top: 12px"></div>
+      <div class="admin-hint">
+        <strong>접속 주소:</strong> 이 파일을 브라우저로 엽니다.<br />
+        로컬 예:
+        <code style="color: #ccc">…/홈페이지/admin.html</code><br />
+        웹 서버에 올린 경우:
+        <code style="color: #ccc">https://도메인/admin.html</code><br /><br />
+        초기 비밀번호는 <code style="color: #ccc">js/admin-config.js</code>에서
+        변경할 수 있습니다. (기본값: <code style="color: #ccc">thewaves-admin</code>)
+      </div>
+    </div>
+
+    <div id="admin-panel" class="admin-shell admin-hidden">
+      <div class="admin-top">
+        <div>
+          <h1>사이트 · 갤러리 관리</h1>
+          <p>
+            <strong>SNS 링크</strong>(YouTube·Instagram·네이버),
+            <strong>로고</strong>와 <strong>페이지별 갤러리</strong>를 편집합니다. 이미지는
+            <strong>파일 업로드</strong> 또는 URL로 넣을 수 있으며, 메인·서브 페이지를
+            선택해 각각 관리합니다. 저장은 이 브라우저
+            <strong>IndexedDB·localStorage</strong>에 반영됩니다. 갤러리는
+            IndexedDB(용량 넉넉), 로고·설정은 localStorage입니다. 사이트 HTML을
+            <strong>같은 주소</strong>(예: 관리자와 메인 모두
+            <code>http://127.0.0.1:5500/…</code>)로 연 뒤 새로고침해야 보입니다.
+            <code>localhost</code>와 <code>127.0.0.1</code>은 서로 다른 저장소입니다.
+            한쪽만 <code>file://</code>로 열면 적용되지 않습니다. 아임웹
+            <a
+              href="https://thewaves.kr/index"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #ff6600"
+              >thewaves.kr</a
+            >
+            공개 문구를 기준으로 기본값을 맞춰 두었으며, JSON보내기/가져오기(v3)로
+            백업할 수 있습니다. 파일 업로드 시 이미지는 자동으로 줄어들며, 저장 시에도
+            한 번 더 최적화합니다.
+          </p>
+        </div>
+        <div class="admin-top__actions">
+          <a class="admin-btn" href="index.html">메인으로</a>
+          <a class="admin-btn" href="admin-design.html">디자인 · 간격</a>
+          <button type="button" class="admin-btn" id="btn-export">JSON보내기</button>
+          <label class="admin-btn" style="cursor: pointer">
+            JSON 가져오기
+            <input
+              id="import-file"
+              type="file"
+              accept="application/json,.json"
+              class="admin-hidden"
+            />
+          </label>
+          <button type="button" class="admin-btn admin-btn--danger" id="btn-reset">
+            저장 초기화
+          </button>
+          <button type="button" class="admin-btn admin-btn--primary" id="btn-save">
+            저장
+          </button>
+        </div>
+      </div>
+      <div id="admin-message" class="admin-hidden"></div>
+      <div id="admin-storage-meter" class="admin-storage-meter" role="status" aria-live="polite"></div>
+      <div id="admin-storage-warning" class="admin-storage-warning admin-hidden" role="status"></div>
+      <div id="site-settings-root"></div>
+      <div id="galleries-root"></div>
+    </div>
+
+    <script src="js/admin-config.js"></script>
+    <script src="js/image-compress.js"></script>
+    <script src="js/gallery-db.js"></script>
+    <script src="js/gallery-store.js"></script>
+    <script src="js/gallery-lightbox.js"></script>
+    <script src="js/site-settings.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>

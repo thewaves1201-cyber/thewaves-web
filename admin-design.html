@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE WAVES — 디자인 · 간격</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Sans+KR:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/admin-design.css" />
+  </head>
+  <body class="admin-body admin-body--design">
+    <div id="login-screen" class="admin-login">
+      <h2>관리자 로그인</h2>
+      <p class="admin-hint" style="margin: 0 0 8px">디자인 · 간격 편집</p>
+      <form id="login-form">
+        <label for="admin-password">비밀번호</label>
+        <input
+          id="admin-password"
+          type="password"
+          name="password"
+          autocomplete="current-password"
+          required
+        />
+        <button type="submit" class="admin-btn admin-btn--primary">
+          들어가기
+        </button>
+      </form>
+      <div id="login-error" class="admin-msg admin-msg--err admin-hidden" style="margin-top: 12px"></div>
+      <p class="admin-hint" style="margin-top: 16px">
+        <a href="admin.html" style="color: var(--admin-accent)">갤러리 관리</a>와
+        같은 비밀번호입니다.
+      </p>
+    </div>
+
+    <div id="design-panel" class="admin-design-shell admin-hidden">
+      <header class="admin-design-top">
+        <div>
+          <h1>디자인 · 간격</h1>
+          <p>
+            페이지를 고른 뒤 슬라이더로 간격·글자 크기를 조절합니다. 오른쪽
+            미리보기에 즉시 반영되며, <strong>저장</strong>을 눌러야 해당
+            페이지에 남습니다. 갤러리·로고 관리자와
+            <strong>같은 주소</strong>(예: Live Server)로 열어 주세요.
+          </p>
+        </div>
+        <div class="admin-top__actions">
+          <label class="admin-design-page-pick">
+            페이지
+            <select id="design-page-select" aria-label="디자인을 적용할 페이지">
+              <option value="index">메인 (index.html)</option>
+              <option value="branded-projects">BRANDED PROJECTS (허브)</option>
+              <option value="brand-marketing">BRAND MARKETING</option>
+              <option value="media-contents">MEDIA CONTENTS</option>
+              <option value="entertainment-contents">ENTERTAINMENT CONTENTS</option>
+              <option value="music-business">MUSIC BUSINESS</option>
+            </select>
+          </label>
+          <a class="admin-btn" href="admin.html">갤러리 관리</a>
+          <button type="button" class="admin-btn" id="btn-design-reset">
+            이 페이지 기본값
+          </button>
+          <button type="button" class="admin-btn admin-btn--primary" id="btn-design-save">
+            저장
+          </button>
+        </div>
+      </header>
+
+      <div id="design-message" class="admin-hidden"></div>
+
+      <div class="admin-design-layout">
+        <aside class="admin-design-controls" id="design-controls" aria-label="간격 조절"></aside>
+        <div class="admin-design-preview-wrap">
+          <div class="admin-design-preview-bar">
+            <span>미리보기</span>
+          </div>
+          <iframe
+            id="design-preview-frame"
+            class="admin-design-preview-frame"
+            title="페이지 미리보기"
+            src="index.html#media-production"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/admin-config.js"></script>
+    <script src="js/site-settings.js"></script>
+    <script src="js/admin-design.js"></script>
+  </body>
+</html>

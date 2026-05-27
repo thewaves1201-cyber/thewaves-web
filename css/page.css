@@ -1,0 +1,1618 @@
+/* Inner pages (about, branded, music, etc.) */
+
+.page-main {
+  margin-top: var(--header-h);
+  padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 40px) 96px;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-main.branded-child,
+.page-main.page-branded-hub {
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-breadcrumb {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.page-breadcrumb a {
+  color: #ff6600;
+  text-decoration: none;
+}
+
+.page-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.page-breadcrumb span {
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+
+.page-title {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: var(--fw-display);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  margin: 0 0 28px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #b8b8b8;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.prose {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15px;
+  line-height: 1.85;
+  color: #c8c8c8;
+}
+
+.prose p {
+  margin: 0 0 1.25em;
+}
+
+.prose strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.prose a {
+  color: #ff6600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page-section {
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.page-section h2 {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-grid a {
+  display: block;
+  padding: 18px 16px;
+  border: 1px solid #2a2a2a;
+  background: var(--bg-elevated);
+  color: #eee;
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.page-grid a:hover {
+  border-color: #ff6600;
+  transform: translateY(-2px);
+}
+
+.page-grid a small {
+  display: block;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.page-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 1;
+}
+
+@media (min-width: 640px) {
+  .page-list--cols {
+    columns: 2;
+    column-gap: 32px;
+  }
+}
+
+.page-list li {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  padding-left: 14px;
+  position: relative;
+  font-size: 14px;
+  color: #c8c8c8;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.page-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-dot);
+}
+
+.page-note {
+  margin-top: 32px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.page-note a {
+  color: #ff6600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* CONTACT (thewaves.kr/18) */
+.page-contact__main {
+  max-width: none;
+  padding-top: var(--hub-top-gap, clamp(24px, 4vw, 40px));
+  padding-bottom: clamp(48px, 8vw, 80px);
+}
+
+.contact-hero {
+  text-align: center;
+  max-width: var(--site-max-width, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--site-gutter, 32px) var(--hub-intro-gap, clamp(28px, 5vw, 48px));
+  box-sizing: border-box;
+}
+
+.contact-hero__brand {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: var(--contact-hero-brand-size, clamp(32px, 6vw, 56px));
+  font-weight: var(--fw-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--brand-orange);
+}
+
+.contact-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--contact-hero-title-size, clamp(32px, 6vw, 56px));
+  font-weight: var(--fw-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: #fff;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 40px);
+  max-width: var(--site-max-width, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+  .contact-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(28px, 4vw, 56px);
+  }
+
+  .contact-layout__form {
+    max-width: none;
+  }
+}
+
+.contact-info {
+  list-style: none;
+  margin: 0 0 clamp(28px, 4vw, 36px);
+  padding: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: var(--contact-info-size, 16px);
+  line-height: 1.65;
+  color: #e8e8e8;
+}
+
+.contact-info__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.contact-info__item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-info__item a:hover {
+  color: var(--brand-orange);
+}
+
+.contact-info__icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #aaa;
+}
+
+.page-contact .contact-form {
+  max-width: 100%;
+}
+
+.contact-form__field {
+  margin-bottom: 12px;
+}
+
+.page-contact .contact-form label {
+  display: block;
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: var(--contact-label-size, 13px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.contact-form__req {
+  color: #e53935;
+}
+
+.page-contact .contact-form input,
+.page-contact .contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--brand-orange);
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: var(--contact-info-size, 15px);
+  line-height: 1.4;
+}
+
+.page-contact .contact-form input {
+  height: 40px;
+  padding: 0 14px;
+}
+
+.page-contact .contact-form textarea {
+  min-height: 112px;
+  padding: 10px 14px;
+  resize: vertical;
+}
+
+.page-contact .contact-form input:focus,
+.page-contact .contact-form textarea:focus {
+  outline: none;
+  border-color: #ff8533;
+  box-shadow: 0 0 0 1px rgba(255, 102, 0, 0.35);
+}
+
+.contact-form__submit {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 11px 20px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  border: 0;
+  border-radius: 0;
+  background: #2a2a2a;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+}
+
+.contact-form__submit:hover:not(:disabled) {
+  background: #3a3a3a;
+}
+
+.contact-form__submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.contact-form__status {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8fd48f;
+}
+
+.contact-form__status--error {
+  color: #f08080;
+}
+
+.contact-layout__map {
+  min-height: 280px;
+}
+
+.contact-map {
+  display: block;
+  width: 100%;
+  height: min(420px, 55vw);
+  min-height: 280px;
+  border: 0;
+  background: #1a1a1a;
+}
+
+@media (min-width: 900px) {
+  .contact-map {
+    height: 100%;
+    min-height: 420px;
+  }
+}
+
+.page-main .band--embed {
+  margin-top: 48px;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.page-main .band--embed .band__slider-wrap {
+  max-width: 100%;
+}
+
+/* BRANDED PROJECTS hub (thewaves.kr/15) */
+.page-main.page-branded-hub {
+  padding-top: var(--hub-top-gap, clamp(24px, 4vw, 40px));
+}
+
+.branded-hub__hero {
+  text-align: center;
+  max-width: var(--site-max-width, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+.branded-hub__title {
+  margin: 0 0 var(--hub-hero-to-subnav-gap, 18px);
+  font-family: var(--font-display);
+  font-size: var(--hub-hero-title-size, clamp(28px, 5vw, 44px));
+  font-weight: var(--fw-display);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--brand-orange);
+}
+
+.branded-hub__subnav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--hub-subnav-gap, clamp(16px, 3.5vw, 36px));
+}
+
+.branded-hub__subnav a {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--hub-subnav-size, clamp(13px, 1.2vw, 15px));
+  font-weight: var(--fw-heading);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #e4e4e4;
+  text-decoration: none;
+  padding: 6px 2px 8px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.branded-hub__subnav a[aria-current="page"] {
+  color: #ff6600;
+  border-bottom-color: #ff6600;
+}
+
+.branded-hub__subnav a:hover,
+.branded-hub__subnav a:focus-visible {
+  color: #ff6600;
+}
+
+.page-branded-hub .branded-hub__band {
+  padding-top: 0;
+  padding-bottom: var(--hub-section-gap, clamp(24px, 4vw, 40px));
+  background: var(--bg);
+}
+
+.page-branded-hub .branded-hub__band:first-of-type {
+  padding-top: var(--hub-intro-gap, clamp(24px, 4vw, 40px));
+}
+
+.page-branded-hub .branded-hub__band .band__slider-wrap {
+  max-width: var(--site-max-width, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter, 32px);
+  padding-right: var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+.page-branded-hub:not(.page-branded-detail) .branded-hub__band .band__slider-wrap {
+  margin-top: 0;
+}
+
+.page-branded-hub .branded-hub__band .band__nav {
+  display: none;
+}
+
+.branded-hub__section-title .band__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.branded-hub__section-title .band__title-link:hover,
+.branded-hub__section-title .band__title-link:focus-visible {
+  color: inherit;
+  opacity: 0.88;
+}
+
+.branded-hub__section-title {
+  font-family: var(--font-display) !important;
+  color: var(--brand-orange) !important;
+  font-size: var(--hub-section-title-size, clamp(18px, 2.4vw, 24px)) !important;
+  font-weight: var(--fw-display) !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.05 !important;
+  margin-bottom: 0 !important;
+}
+
+/* 허브: 제목 ↔ 흰 선 ↔ 썸네일 (각각 따로) */
+.page-branded-hub .branded-hub__section-title.band__title--accent {
+  gap: var(
+    --hub-title-to-line-gap,
+    var(--band-title-to-line-gap, var(--band-title-line-gap))
+  );
+}
+
+.page-branded-hub
+  .branded-hub__band
+  .branded-hub__section-title.band__title--accent
+  + .band__slider-wrap {
+  margin-top: var(
+    --hub-line-to-thumb-gap,
+    var(--band-line-to-thumb-gap, var(--band-title-line-gap))
+  );
+}
+
+.page-branded-hub .branded-hub__section-title.band__title--accent::after {
+  display: block;
+  width: clamp(200px, 38vw, 380px);
+  height: 2px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.page-branded-hub .branded-hub__section-title + .hub-body {
+  margin-top: var(
+    --hub-line-to-thumb-gap,
+    var(--band-line-to-thumb-gap, var(--band-title-line-gap))
+  );
+}
+
+/* PARTNERS: 대제목과 로고 그리드 사이 (디자인의 hubIntroGap) */
+.page-partners .branded-hub__band--solo {
+  padding-top: var(--hub-intro-gap, clamp(20px, 3vw, 32px));
+}
+
+/* PARTNERS 등: 대제목만 있고 섹션 소제목 없음 */
+.page-branded-hub .branded-hub__band--solo .hub-body {
+  margin-top: 0;
+  max-width: var(--site-max-width, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter, 32px);
+  padding-right: var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+.page-branded-hub .branded-hub__band--static .hub-body {
+  margin-top: 0;
+}
+
+.page-branded-detail .branded-hub__hero {
+  padding-bottom: 0;
+}
+
+.page-branded-detail .branded-hub__band:first-of-type {
+  padding-top: var(--hub-intro-gap, clamp(24px, 4vw, 40px));
+}
+
+.branded-hub__more-wrap {
+  text-align: center;
+  max-width: var(--site-max-width, 1440px);
+  margin: clamp(20px, 3vw, 32px) auto 0;
+  padding-left: var(--site-gutter, 32px);
+  padding-right: var(--site-gutter, 32px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.branded-hub__more-wrap[hidden],
+.branded-hub__more--expand[hidden] {
+  display: none !important;
+}
+
+.branded-child__more-wrap {
+  text-align: center;
+  margin: clamp(20px, 3vw, 28px) 0 0;
+}
+
+.branded-hub__more,
+.branded-child__more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  min-height: 36px;
+  padding: 10px 36px;
+  box-sizing: border-box;
+  font-family: "Montserrat", "Noto Sans KR", sans-serif;
+  font-size: clamp(12px, 1.05vw, 14px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #fff;
+  text-decoration: none;
+  background: #2a2a2a;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  transition:
+    color 0.2s var(--ease),
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+button.branded-hub__more {
+  appearance: none;
+  cursor: pointer;
+}
+
+.branded-hub__more:hover,
+.branded-child__more:hover,
+.branded-hub__more:focus-visible,
+.branded-child__more:focus-visible {
+  color: #1a1a1a;
+  background: #fff;
+  border-color: #fff;
+}
+
+.branded-child__more-wrap--cluster {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 허브: 3열 그리드 + 더보기로 행 추가 (Swiper 미사용) */
+.page-branded-hub .branded-hub-grid-swiper {
+  overflow: visible;
+}
+
+.page-branded-hub .branded-hub-grid-swiper .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 2vw, 22px);
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  translate: none !important;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .page-branded-detail .branded-hub-grid-swiper .swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 720px) {
+  /* BRANDED PROJECTS 허브: 더보기 전 1줄 3개 (아티스트 5열 그리드 제외) */
+  .page-branded-hub:not(.page-branded-detail)
+    .branded-hub-grid-swiper:not(.music-artist-grid):not(.music-publish-grid)
+    .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .page-branded-detail .branded-hub-grid-swiper .swiper-wrapper {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.page-branded-hub .branded-hub-grid-swiper .swiper-slide {
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.page-branded-hub .branded-hub-grid-swiper .swiper-slide[hidden] {
+  display: none !important;
+}
+
+/* 더보기 전: JS가 [hidden]으로 개수 제어 (nth-child 규칙은 그리드 열 수와 충돌함) */
+
+/* 내부 페이지 공통 (메인 제외) — 디자인 관리 허브 변수 */
+body[data-design-page]:not([data-design-page="index"]) .page-main {
+  padding-top: var(--hub-top-gap, clamp(24px, 4vw, 40px));
+}
+
+/* BRANDED PROJECT 세부·MUSIC BUSINESS 등 */
+.branded-child {
+  padding-top: 0;
+}
+
+.branded-child__hero {
+  text-align: center;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.branded-child__title {
+  margin: 0 0 var(--hub-hero-to-subnav-gap, 22px);
+  font-family: var(--font-display);
+  font-size: var(--hub-hero-title-size, clamp(26px, 4.5vw, 40px));
+  font-weight: var(--fw-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--brand-orange);
+}
+
+.branded-child__section-title {
+  margin: 0 auto var(--hub-title-to-line-gap, 14px);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--hub-section-title-size, clamp(14px, 2vw, 18px));
+  font-weight: var(--fw-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #ff6600;
+}
+
+#artist-management,
+#music-publishing,
+#album,
+#live-clip {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.artist-management-page .branded-child__hero {
+  margin-bottom: clamp(8px, 2vw, 16px);
+}
+
+.artist-name-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--hub-subnav-gap, clamp(12px, 2.5vw, 32px));
+  margin: 0 auto clamp(20px, 3vw, 32px);
+  padding: 0 var(--site-gutter, 32px);
+  max-width: var(--site-max-width, 1440px);
+  box-sizing: border-box;
+}
+
+.artist-name-ribbon a {
+  font-family: "Montserrat", "Noto Sans KR", sans-serif;
+  font-size: var(--hub-subnav-size, clamp(10px, 1.1vw, 12px));
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #e8e8e8;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.artist-name-ribbon a:hover,
+.artist-name-ribbon a:focus-visible {
+  color: #ff6600;
+  outline: none;
+}
+
+/* 아티스트 상세 (예: Park Seo Young /30) */
+.page-main.artist-page.branded-child {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.artist-page .page-breadcrumb,
+.artist-page .page-note,
+.artist-page .branded-child__more-wrap {
+  display: none;
+}
+
+.artist-page .branded-child__hero {
+  max-width: var(--site-max-width, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter, 32px);
+  padding-right: var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+.artist-page__hero {
+  margin-bottom: clamp(8px, 2vw, 20px);
+}
+
+.artist-page__block {
+  padding-top: clamp(28px, 4vw, 48px);
+}
+
+.artist-page__block-title {
+  margin: 0 auto var(--hub-title-to-line-gap, 12px);
+  max-width: var(--site-max-width, 1440px);
+  padding: 0 var(--site-gutter, 32px);
+  box-sizing: border-box;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--hub-section-title-size, clamp(14px, 2vw, 18px));
+  font-weight: var(--fw-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #ff6600;
+}
+
+.artist-page .artist-page__block:first-of-type {
+  padding-top: var(--hub-intro-gap, clamp(24px, 4vw, 40px));
+}
+
+.artist-page__rule {
+  max-width: var(--site-max-width, 1440px);
+  margin: 0 auto var(--hub-line-to-thumb-gap, 22px);
+  padding: 0 var(--site-gutter, 32px);
+  box-sizing: border-box;
+  height: 1px;
+  background: linear-gradient(90deg, #6a6a6a 0%, #3a3a3a 40%, transparent 100%);
+}
+
+.artist-page .gallery-swiper--wide .gallery-card__text {
+  text-align: center;
+}
+
+/* 갤러리 영역 — 섹션 제목·구분선과 동일 컨테이너 (band--embed의 max-width:100% 덮어씀) */
+.page-main.artist-page.branded-child .band--embed .band__slider-wrap,
+.artist-page .band__slider-wrap {
+  max-width: var(--site-max-width, 1440px) !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter, 32px) !important;
+  padding-right: var(--site-gutter, 32px) !important;
+  box-sizing: border-box;
+}
+
+.artist-page .band__nav {
+  display: none !important;
+}
+
+/* ALBUM — imweb: 한 줄 5열 정사각형 그리드 */
+.artist-page .artist-page__album-swiper {
+  overflow: visible;
+}
+
+.artist-page .artist-page__album-swiper .swiper-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+  transform: none !important;
+  translate: none !important;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .artist-page .artist-page__album-swiper .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .artist-page .artist-page__album-swiper .swiper-wrapper {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.artist-page .artist-page__album-swiper .swiper-slide,
+.artist-page .artist-page__album-swiper .gallery-card-wrap {
+  width: 100% !important;
+  max-width: none;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+/* LIVE CLIP — imweb: 한 줄 5열 그리드 */
+.artist-page .artist-page__live-swiper {
+  overflow: visible;
+}
+
+.artist-page .artist-page__live-swiper .swiper-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 18px);
+  transform: none !important;
+  translate: none !important;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .artist-page .artist-page__live-swiper .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .artist-page .artist-page__live-swiper .swiper-wrapper {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.artist-page .artist-page__live-swiper .swiper-slide,
+.artist-page .artist-page__live-swiper .gallery-card-wrap {
+  width: 100% !important;
+  max-width: none;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.branded-child__subnav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--hub-subnav-gap, clamp(14px, 3vw, 32px));
+}
+
+.branded-child__subnav a {
+  font-family: var(--font-display);
+  font-size: var(--hub-subnav-size, clamp(11px, 1.2vw, 15px));
+  font-weight: var(--fw-heading);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c8c8c8;
+  text-decoration: none;
+  padding: 6px 4px 10px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.branded-child__subnav a:hover {
+  color: #fff;
+}
+
+.branded-child__subnav a[aria-current="page"] {
+  color: #ff6600;
+  border-bottom-color: #ff6600;
+}
+
+.branded-child__lead {
+  margin: 0 auto 20px;
+  max-width: 520px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #9a9a9a;
+  font-family: "Noto Sans KR", sans-serif;
+  text-align: center;
+}
+
+.branded-child__rule {
+  width: min(100%, 120px);
+  height: 1px;
+  margin: 0 auto var(--hub-line-to-thumb-gap, 22px);
+  background: linear-gradient(90deg, transparent, #5a5a5a 20%, #5a5a5a 80%, transparent);
+}
+
+.branded-child__hero .branded-child__rule {
+  margin-bottom: 8px;
+}
+
+/* BRANDED 세부·허브: 한 화면에 카드 여러 장 (thewaves /15·/19·/20 느낌) */
+.gallery-swiper--gridBand.gallery-swiper--wide .gallery-card-wrap {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.gallery-swiper--gridBand .gallery-card__text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.gallery-swiper--gridBand .gallery-card__text strong {
+  font-size: var(--grid-card-title-size, 12px);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.gallery-swiper--gridBand .gallery-card__text span {
+  font-size: var(--grid-card-desc-size, 10px);
+}
+
+.gallery-swiper--gridBand .gallery-card__text--stack .gallery-card__eyebrow {
+  display: block;
+  text-align: center;
+}
+
+.gallery-swiper--publishGrid .gallery-card__text {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .gallery-swiper--artistRow.gallery-swiper--wide .gallery-card-wrap,
+  .gallery-swiper--publishGrid.gallery-swiper--wide .gallery-card-wrap {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+.page-main.branded-child .branded-child__gallery.band:first-of-type,
+.page-main.branded-child .music-business-section:first-of-type {
+  padding-top: var(--hub-intro-gap, clamp(24px, 4vw, 40px));
+}
+
+.branded-child__gallery.band {
+  padding-top: 0;
+  padding-bottom: var(--hub-section-gap, clamp(24px, 4vw, 40px));
+}
+
+.branded-child__gallery .band__slider-wrap {
+  max-width: var(--site-max-width, 1440px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter, 32px);
+  padding-right: var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+#brand-marketing,
+#media-contents,
+#entertainment-contents,
+#artist-management,
+#music-publishing {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+/* 내부 페이지 공통 — BRANDED PROJECTS 허브 폼 (메인 제외) */
+.page-branded-hub .page-breadcrumb,
+.page-branded-hub .page-note,
+.page-branded-hub .page-title,
+.page-branded-hub .page-subtitle {
+  display: none;
+}
+
+.page-branded-hub .hub-body {
+  max-width: var(--site-max-width, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--site-gutter, 32px);
+  box-sizing: border-box;
+}
+
+/* PARTNERS — 로고 갤러리 (데스크톱 6열) */
+.page-partners .partners-logo-grid {
+  width: 100%;
+}
+
+.page-partners .partners-logo-grid__inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 3vw, 36px) clamp(10px, 1.5vw, 18px);
+  transform: none !important;
+  translate: none !important;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-partners .partners-logo-grid__inner .gallery-card-wrap {
+  width: auto !important;
+  max-width: none !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.page-partners .gallery-card--partner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
+
+.page-partners .gallery-card--partner.gallery-card--lightbox,
+.page-partners a.gallery-card--partner {
+  cursor: pointer;
+}
+
+.page-partners .gallery-card--partner .gallery-card__media {
+  width: 100%;
+  min-height: var(--partner-logo-height, clamp(56px, 8vw, 88px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: auto;
+  background: transparent;
+  overflow: visible;
+}
+
+.page-partners .gallery-card--partner .gallery-card__media img {
+  width: auto;
+  max-width: min(100%, var(--partner-logo-max-width, 260px));
+  height: auto;
+  max-height: var(--partner-logo-height, clamp(56px, 8vw, 88px));
+  object-fit: contain;
+  background: transparent;
+  filter: none;
+  opacity: 0.95;
+  transition: opacity 0.2s var(--ease, ease);
+}
+
+.page-partners .gallery-card--partner .gallery-card__media--empty {
+  min-height: var(--partner-logo-height, clamp(56px, 8vw, 88px));
+}
+
+.page-partners .gallery-card--partner:hover .gallery-card__media img {
+  opacity: 1;
+  transform: none;
+}
+
+.page-partners .gallery-card--partner.gallery-card--no-logo .gallery-card__media--empty {
+  display: none;
+}
+
+.page-partners .gallery-card__text--partner {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans KR", "Montserrat", sans-serif;
+  font-size: var(--partner-caption-size, 12px);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: #fff;
+}
+
+/* styles.css .gallery-card__text span { font-size:12px } 보다 우선 — 슬라이더 반영 */
+.page-partners .gallery-card__text--partner span {
+  display: block;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+@media (min-width: 520px) {
+  .page-partners .partners-logo-grid__inner {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .page-partners .partners-logo-grid__inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-partners .partners-logo-grid__inner {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.page-branded-hub .hub-contact-block {
+  text-align: center;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #ccc;
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.page-branded-hub .hub-contact-block p {
+  margin: 0 0 8px;
+}
+
+.page-branded-hub .hub-contact-block strong {
+  font-family: var(--font-display);
+  font-size: var(--hub-section-title-size, clamp(14px, 2vw, 18px));
+  color: #ff6600;
+  letter-spacing: 0.04em;
+}
+
+.page-branded-hub .contact-form {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* 아티스트 5명 한 줄 (MUSIC BUSINESS — ARTIST MANAGEMENT) */
+.page-branded-hub .music-artist-grid {
+  overflow: visible;
+  max-width: min(1320px, 100%);
+  margin: 0 auto;
+}
+
+.page-branded-hub .music-artist-grid-wrap,
+.page-artist-management .music-artist-grid-wrap {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-branded-hub .music-artist-grid .swiper-wrapper,
+.page-artist-management .music-artist-grid .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vw, 18px);
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  translate: none !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 719px) {
+  .page-branded-hub .music-artist-grid .swiper-wrapper,
+  .page-artist-management .music-artist-grid .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .page-branded-hub .music-artist-grid .swiper-wrapper,
+  .page-artist-management .music-artist-grid .swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.page-branded-hub .music-artist-grid .swiper-slide,
+.page-artist-management .music-artist-grid .swiper-slide {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.page-branded-hub .music-artist-grid.gallery-swiper--wide .gallery-card-wrap,
+.page-branded-hub .music-artist-grid .gallery-card-wrap,
+.page-artist-management .music-artist-grid .gallery-card-wrap {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+.page-artist-management .artist-management-page__hero .branded-hub__title {
+  margin-bottom: 0;
+}
+
+.page-artist-management .branded-hub__subnav {
+  display: none !important;
+}
+
+.page-artist-management .artist-management-page__hero .artist-name-ribbon {
+  display: flex;
+  margin-top: var(--hub-hero-to-subnav-gap, 18px);
+  margin-bottom: clamp(16px, 2.5vw, 28px);
+}
+
+.page-artist-management .music-artist-grid .gallery-card__text {
+  display: none !important;
+}
+
+.page-artist-management .branded-hub__band--solo {
+  padding-top: var(--hub-intro-gap, clamp(12px, 2vw, 20px));
+}
+
+.page-artist-management .music-artist-grid .gallery-card,
+.page-branded-hub .music-artist-grid .gallery-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100%;
+  width: 100%;
+}
+
+.page-artist-management .music-artist-grid .gallery-card:hover,
+.page-branded-hub .music-artist-grid .gallery-card:hover {
+  transform: none;
+}
+
+/* ARTIST MANAGEMENT — 호버 시 어둡게 + 이름 */
+.page-artist-management .music-artist-grid .gallery-card--portrait-hover .gallery-card__media {
+  position: relative;
+}
+
+.page-artist-management .music-artist-grid .gallery-card--portrait-hover .gallery-card__media img {
+  transition:
+    transform 0.35s var(--ease, ease),
+    filter 0.28s var(--ease, ease);
+}
+
+.page-artist-management .music-artist-grid .gallery-card__hover {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition: background 0.28s var(--ease, ease);
+}
+
+.page-artist-management .music-artist-grid .gallery-card__hover-name {
+  font-family: "Montserrat", "Noto Sans KR", sans-serif;
+  font-size: clamp(10px, 1.1vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  color: #fff;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.28s var(--ease, ease),
+    transform 0.28s var(--ease, ease);
+}
+
+.page-artist-management .music-artist-grid .gallery-card--portrait-hover:hover .gallery-card__media img,
+.page-artist-management
+  .music-artist-grid
+  .gallery-card--portrait-hover:focus-visible
+  .gallery-card__media
+  img {
+  transform: scale(1.03);
+  filter: brightness(0.72);
+}
+
+.page-artist-management .music-artist-grid .gallery-card--portrait-hover:hover .gallery-card__hover,
+.page-artist-management
+  .music-artist-grid
+  .gallery-card--portrait-hover:focus-visible
+  .gallery-card__hover {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.page-artist-management .music-artist-grid .gallery-card--portrait-hover:hover .gallery-card__hover-name,
+.page-artist-management
+  .music-artist-grid
+  .gallery-card--portrait-hover:focus-visible
+  .gallery-card__hover-name {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* MUSIC PUBLISHING — imweb /24: 정사각형 앨범, 한 줄 6개 */
+.page-branded-hub .music-publish-grid,
+.page-music-publishing .music-publish-grid {
+  overflow: visible;
+}
+
+.page-branded-hub .music-publish-grid-wrap,
+.page-music-publishing .music-publish-grid-wrap {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* MUSIC BUSINESS 허브 — PUBLISHING 미리보기 1줄 3개 */
+.page-branded-hub:not(.page-branded-detail)
+  #music-publishing
+  .music-publish-grid
+  .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  translate: none !important;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .page-branded-hub:not(.page-branded-detail)
+    #music-publishing
+    .music-publish-grid
+    .swiper-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 720px) {
+  .page-branded-hub:not(.page-branded-detail)
+    #music-publishing
+    .music-publish-grid
+    .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* MUSIC PUBLISHING 전용 페이지 — imweb /24: 최대 6열 */
+.page-music-publishing .music-publish-grid .swiper-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+  width: 100% !important;
+  height: auto !important;
+  transform: none !important;
+  translate: none !important;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .page-music-publishing .music-publish-grid .swiper-wrapper {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .page-music-publishing .music-publish-grid .swiper-wrapper {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .page-music-publishing .music-publish-grid .swiper-wrapper {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.page-branded-hub .music-publish-grid .swiper-slide,
+.page-branded-hub .music-publish-grid .gallery-card-wrap,
+.page-music-publishing .music-publish-grid .swiper-slide,
+.page-music-publishing .music-publish-grid .gallery-card-wrap {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+}
+
+.page-branded-hub .music-publish-grid .gallery-card__text,
+.page-music-publishing .music-publish-grid .gallery-card__text {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.page-branded-hub .music-publish-grid .gallery-card__text strong,
+.page-music-publishing .music-publish-grid .gallery-card__text strong {
+  font-size: var(--grid-card-title-size, 12px);
+  font-weight: 500;
+}
+
+.page-branded-hub .music-publish-grid .gallery-card__text span,
+.page-music-publishing .music-publish-grid .gallery-card__text span {
+  font-size: var(--grid-card-desc-size, 10px);
+  color: #e8e8e8;
+}
+
+.page-music-publishing .branded-hub__hero .branded-hub__title {
+  margin-bottom: 0;
+}
+
+.page-music-publishing .branded-hub__subnav {
+  display: none !important;
+}
+
+.page-music-publishing .branded-hub__band--solo {
+  padding-top: var(--hub-intro-gap, clamp(20px, 3vw, 32px));
+}
+
+a.branded-hub__more {
+  text-decoration: none;
+}
+
+.page-branded-hub:not(.page-artist-management) .music-artist-grid .gallery-card__text {
+  display: block;
+  flex: 0 0 auto;
+  margin-top: clamp(8px, 1vw, 12px);
+  padding: 0 2px;
+  text-align: center;
+  font-family: "Noto Sans KR", "Montserrat", sans-serif;
+}
+
+.page-branded-hub:not(.page-artist-management) .music-artist-grid .gallery-card__text strong {
+  display: block;
+  font-size: clamp(10px, 1.05vw, 12px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: #e8e8e8;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.page-branded-hub:not(.page-artist-management) .music-artist-grid .gallery-card__text span {
+  display: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* About — imweb /aboutus */
+.page-main.page-about {
+  padding-top: var(--header-h);
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.about-page {
+  margin: 0 auto;
+  padding-bottom: clamp(48px, 8vw, 80px);
+}
+
+.page-about .about-page__hero {
+  text-align: center;
+  padding: clamp(24px, 4vw, 40px) var(--site-gutter, 32px)
+    clamp(20px, 3vw, 28px);
+}
+
+.page-about .about-page__hero .branded-hub__title {
+  margin: 0;
+}
+
+.about-hero {
+  margin: 0 auto clamp(28px, 4vw, 44px);
+  max-width: min(1080px, calc(100% - 2 * var(--site-gutter, 32px)));
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.about-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-brand {
+  text-align: center;
+  padding: 0 var(--site-gutter, 32px) clamp(28px, 4vw, 44px);
+}
+
+.about-brand__img {
+  display: inline-block;
+  max-width: min(620px, 92vw);
+  width: auto;
+  max-height: 160px;
+  object-fit: contain;
+}
+
+.about-brand__img[hidden] {
+  display: none !important;
+}
+
+.about-brand__fallback {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2vw, 18px);
+}
+
+.about-brand__fallback[hidden] {
+  display: none !important;
+}
+
+.about-brand__mark {
+  width: min(520px, 82vw);
+  height: auto;
+}
+
+.about-brand__text {
+  font-size: clamp(15px, 1.9vw, 18px);
+  letter-spacing: 0.22em;
+}
+
+.about-prose-wrap {
+  max-width: min(660px, calc(100% - 2 * var(--site-gutter, 32px)));
+  margin: 0 auto;
+  padding: 0 var(--site-gutter, 32px) clamp(36px, 6vw, 56px);
+}
+
+.about-prose {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(15px, 1.45vw, 17px);
+  font-weight: 600;
+  line-height: 1.9;
+  color: #fff;
+  text-align: left;
+}
+
+.about-prose p {
+  margin: 0 0 2em;
+}
+
+.about-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.about-prose .about-lead {
+  display: block;
+  margin-bottom: 0.55em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.about-prose .about-lead__word {
+  color: var(--brand-orange, #ff6600);
+}
+
+.about-mid-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  padding: 0 var(--site-gutter, 32px) clamp(24px, 4vw, 40px);
+}
+
+.about-mid-social .social__link {
+  opacity: 0.88;
+}
