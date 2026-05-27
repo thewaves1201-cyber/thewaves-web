@@ -1497,6 +1497,18 @@ a.branded-hub__more {
 }
 
 /* About — imweb /aboutus */
+html:not(.waves-content-ready) .page-about .about-page__hero,
+html:not(.waves-content-ready) .page-about .about-hero,
+html:not(.waves-content-ready) .page-about .about-brand {
+  visibility: hidden;
+}
+
+html.waves-content-ready .page-about .about-page__hero,
+html.waves-content-ready .page-about .about-hero,
+html.waves-content-ready .page-about .about-brand {
+  visibility: visible;
+}
+
 .page-main.page-about {
   padding-top: var(--header-h);
   max-width: none;

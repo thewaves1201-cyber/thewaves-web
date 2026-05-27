@@ -27,6 +27,26 @@
   font-family: var(--font-body);
 }
 
+/* JSON·갤러리 로드 전 빈 히어로·기본 로고가 잠깐 보이는 현상 방지 */
+html:not(.waves-content-ready) .hero,
+html:not(.waves-content-ready) main > .band,
+html:not(.waves-content-ready) .page-main > .band,
+html:not(.waves-content-ready) .artist-page__section {
+  visibility: hidden;
+}
+
+html:not(.waves-content-ready) .site-header .logo {
+  visibility: hidden;
+}
+
+html.waves-content-ready .hero,
+html.waves-content-ready main > .band,
+html.waves-content-ready .page-main > .band,
+html.waves-content-ready .artist-page__section,
+html.waves-content-ready .site-header .logo {
+  visibility: visible;
+}
+
 *,
 *::before,
 *::after {

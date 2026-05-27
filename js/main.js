@@ -60,7 +60,11 @@
   function initSwipers() {
     if (typeof Swiper === "undefined") return;
     var heroEl = document.querySelector(".hero-swiper");
-    if (heroEl && !heroEl.swiper) {
+    if (
+      heroEl &&
+      !heroEl.swiper &&
+      heroEl.querySelector(".swiper-slide")
+    ) {
       new Swiper(heroEl, {
         loop: true,
         speed: 900,
