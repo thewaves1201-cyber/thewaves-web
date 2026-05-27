@@ -2,6 +2,11 @@
   "use strict";
 
   var STORAGE_KEY = "waves_site_v1";
+  var SITE_DATA_URL = "data/site.json";
+
+  var bundledSiteSettings = null;
+  var siteSettingsReady = false;
+  var siteReadyQueue = [];
 
   var DESIGN_DEFAULT = {
     sectionGap: 96,
@@ -538,14 +543,59 @@
     };
   }
 
-  function load() {
+  function siteSettingsScore(s) {
+    if (!s) return 0;
+    var n = 0;
+    if (s.logoUrl) n += s.logoUrl.indexOf("data:") === 0 ? 24 : 3;
+    if (s.aboutHeroUrl) n += s.aboutHeroUrl.indexOf("data:") === 0 ? 24 : 3;
+    if (s.youtubeUrl) n += 1;
+    if (s.instagramUrl) n += 1;
+    if (s.naverUrl) n += 1;
+    if (s.designPages && Object.keys(s.designPages).length) n += 4;
+    return n;
+  }
+
+  function pickRicherSiteSettings(a, b) {
+    var aS = siteSettingsScore(a);
+    var bS = siteSettingsScore(b);
+    if (aS !== bS) return aS > bS ? normalize(a) : normalize(b);
+    try {
+      return JSON.stringify(a).length >= JSON.stringify(b).length
+        ? normalize(a)
+        : normalize(b);
+    } catch (e) {
+      return normalize(b);
+    }
+  }
+
+  function loadFromLocalStorage() {
     try {
       var raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return normalize(DEFAULT);
+      if (!raw) return null;
       return normalize(JSON.parse(raw));
     } catch (e) {
-      return normalize(DEFAULT);
+      return null;
     }
+  }
+
+  function load() {
+    var fromLs = loadFromLocalStorage();
+    if (!bundledSiteSettings && !fromLs) return normalize(DEFAULT);
+    if (!bundledSiteSettings) return fromLs;
+    if (!fromLs) return bundledSiteSettings;
+    return pickRicherSiteSettings(fromLs, bundledSiteSettings);
+  }
+
+  function whenSiteReady(fn) {
+    if (siteSettingsReady) {
+      fn();
+      return;
+    }
+    siteReadyQueue.push(fn);
+  }
+
+  function exportDeploySiteSettings(store) {
+    return JSON.stringify(normalize(store || DEFAULT), null, 2);
   }
 
   function save(data) {
@@ -691,6 +741,36 @@
 
   initDesignPreviewListener();
 
+  function bootSiteSettings() {
+    if (typeof fetch !== "function") {
+      siteSettingsReady = true;
+      siteReadyQueue.splice(0).forEach(function (fn) {
+        fn();
+      });
+      return;
+    }
+    fetch(SITE_DATA_URL, { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then(function (raw) {
+        bundledSiteSettings = raw ? normalize(raw) : null;
+      })
+      .catch(function () {
+        bundledSiteSettings = null;
+      })
+      .finally(function () {
+        siteSettingsReady = true;
+        var queue = siteReadyQueue.splice(0);
+        queue.forEach(function (fn) {
+          fn();
+        });
+      });
+  }
+
+  bootSiteSettings();
+
   window.WavesSiteSettings = {
     STORAGE_KEY: STORAGE_KEY,
     DEFAULT: DEFAULT,
@@ -707,5 +787,8 @@
     getDesignForPage: getDesignForPage,
     detectDesignPageId: detectDesignPageId,
     isHubDesignPage: isHubDesignPage,
+    whenSiteReady: whenSiteReady,
+    exportDeploySiteSettings: exportDeploySiteSettings,
+    SITE_DATA_URL: SITE_DATA_URL,
   };
 })();

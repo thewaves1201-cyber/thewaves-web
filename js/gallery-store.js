@@ -3,6 +3,7 @@
 
   var STORAGE_KEY_V1 = "waves_gallery_v1";
   var STORAGE_KEY = "waves_gallery_v2";
+  var SITE_GALLERY_URL = "data/gallery.json";
 
   var memoryStore = null;
   var storageReady = false;
@@ -152,7 +153,7 @@
     "live-clip": [
       {
         image:
-          "https://images.unsplash.com/photo-1470229722913-7c0e020dbacc?auto=format&fit=crop&w=960&q=80",
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=960&q=80",
         href: "https://www.youtube.com/",
         title: "[MV] 민천(Mincheon) _ Way Up",
         description: "",
@@ -204,7 +205,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1614613535308-eb92f978a57a?auto=format&fit=crop&w=960&q=80",
+          "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=960&q=80",
         href: "https://www.youtube.com/",
         title: "DAIN - Traveler Official Video",
         description: "",
@@ -227,7 +228,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1598387993441-a364f854c3e0?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=800&q=80",
         href: "#",
         title: "SINGLE ALBUM [고양이]",
         description: "2022.10.18",
@@ -272,7 +273,7 @@
     "live-clip": [
       {
         image:
-          "https://images.unsplash.com/photo-1470229722913-7c0e020dbacc?auto=format&fit=crop&w=960&q=80",
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=960&q=80",
         href: "https://www.youtube.com/",
         title: "[LIVECLIP] 솔트(SoLt) _ walk",
         description: "",
@@ -338,7 +339,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1614613535308-eb92f978a57a?auto=format&fit=crop&w=900&q=80",
+          "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80",
         href: "#",
         title: "O.O",
         description: "엔믹스(NMIXX)",
@@ -356,7 +357,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1571330735060-3bbbc08faead?auto=format&fit=crop&w=900&q=80",
+          "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80",
         href: "#",
         title: "WALK",
         description: "SoLt(솔트)",
@@ -374,7 +375,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1524712246334-2be03f9431af?auto=format&fit=crop&w=900&q=80",
+          "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=900&q=80",
         href: "#",
         title: "Purple Sunrise",
         description: "iflandies(이프랜디스)",
@@ -454,7 +455,7 @@
   var BRAND_MARKETING_PAGE_DEFAULT_ITEMS = [
       {
         image:
-          "https://images.unsplash.com/photo-1470229722913-7c0e020dbacc?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "SKT ifland X 걸그룹 '에스파' 팬밋업 송출",
         description: "SKT ifland X 걸그룹 '에스파' 팬밋업 송출",
@@ -481,7 +482,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1598387993441-a364f854c3e0?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "BAND NELL(넬)",
         description: "XR 메타버스 콘서트 기획&제작",
@@ -508,7 +509,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1598387181032-a3103a2b5bfb?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "버추얼아이돌 '이프랜디스' & SF9 '영빈'",
         description: "음원 'Purple Sunrise' 및 팬밋업 라이브 제작",
@@ -548,7 +549,7 @@
     hero: [
       {
         image:
-          "https://images.unsplash.com/photo-1470229722913-7c0e020dbacc?auto=format&fit=crop&w=2000&q=80",
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=2000&q=80",
         href: "#",
         title: "BAND NELL\nMETAVERSE CONCERT",
         description: "넬 메타버스 콘서트 제작지원",
@@ -566,7 +567,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1598387993441-a364f854c3e0?auto=format&fit=crop&w=2000&q=80",
+          "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=2000&q=80",
         href: "#",
         title: "BRANDED\nENTERTAINMENT",
         description: "브랜디드 엔터테인먼트 프로젝트",
@@ -586,7 +587,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1524712246334-2be03f9431af?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "MBC X KOREANET",
         description: "KPOP STAR SHOWCASE 제작지원(음향팀)",
@@ -595,7 +596,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1470229722913-7c0e020dbacc?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "걸그룹 '지니어스(Geenius)'",
         description: "데뷔앨범 'Voyage' MV 제작",
@@ -622,7 +623,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1598387993441-a364f854c3e0?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "L'ORÉAL KOREA",
         description: "이노베이션 센터 5주년 기념 행사 촬영",
@@ -651,7 +652,7 @@
     entertainment: [
       {
         image:
-          "https://images.unsplash.com/photo-1598387181032-a3103a2b5bfb?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "디지털 콘텐츠 '원데이 클라쓰' 시리즈 후반 편집",
         description: "MNET KCON",
@@ -696,7 +697,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1524712246334-2be03f9431af?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "보컬 에이스들의 라이브",
         description: "MNET 로드투킹덤",
@@ -705,7 +706,7 @@
       },
       {
         image:
-          "https://images.unsplash.com/photo-1470229722913-7c0e020dbacc?auto=format&fit=crop&w=1200&q=80",
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=1200&q=80",
         href: "#",
         title: "Debut Showcase 제작",
         description: "izx!(아이즈엑스)",
@@ -814,6 +815,43 @@
     } catch (e) {
       return b;
     }
+  }
+
+  function resolveGalleryStore(fromSite, fromLs, fromIdb) {
+    var store = defaultStore();
+    [fromSite, fromIdb, fromLs].forEach(function (src) {
+      if (src) store = pickRicherGalleryStore(store, src);
+    });
+    return store;
+  }
+
+  function fetchBundledGallery(cb) {
+    cb = cb || function () {};
+    if (typeof fetch !== "function") {
+      cb(null);
+      return;
+    }
+    fetch(SITE_GALLERY_URL, { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then(function (raw) {
+        if (raw && raw.version === 2 && raw.pages) {
+          try {
+            cb(ensurePagesShape(raw));
+            return;
+          } catch (e) {}
+        }
+        cb(null);
+      })
+      .catch(function () {
+        cb(null);
+      });
+  }
+
+  function exportDeployGalleryStore(store) {
+    return JSON.stringify(ensurePagesShape(store || defaultStore()), null, 2);
   }
 
   function normalizeMultiline(s) {
@@ -1112,38 +1150,32 @@
       done(store);
     }
 
-    if (!window.WavesGalleryDB) {
-      finish(loadRawFromLocalStorage() || defaultStore());
-      return;
-    }
+    fetchBundledGallery(function (fromSite) {
+      if (!window.WavesGalleryDB) {
+        finish(resolveGalleryStore(fromSite, loadRawFromLocalStorage(), null));
+        return;
+      }
 
-    window.WavesGalleryDB.loadGallery(function (err, json) {
-      var fromIdb = null;
-      if (!err && json) {
-        try {
-          fromIdb = ensurePagesShape(JSON.parse(json));
-        } catch (e) {
-          fromIdb = null;
+      window.WavesGalleryDB.loadGallery(function (err, json) {
+        var fromIdb = null;
+        if (!err && json) {
+          try {
+            fromIdb = ensurePagesShape(JSON.parse(json));
+          } catch (e) {
+            fromIdb = null;
+          }
         }
-      }
 
-      var fromLs = loadRawFromLocalStorage();
-      var store;
-
-      if (fromLs && fromIdb) {
-        store = pickRicherGalleryStore(fromLs, fromIdb);
-      } else if (fromLs) {
-        store = fromLs;
-      } else if (fromIdb) {
-        store = fromIdb;
-      } else {
-        store = defaultStore();
-      }
-
-      var payload = JSON.stringify(store);
-      window.WavesGalleryDB.saveGallery(payload, function () {
-        clearLegacyGalleryLocalStorage();
-        finish(store);
+        var store = resolveGalleryStore(
+          fromSite,
+          loadRawFromLocalStorage(),
+          fromIdb
+        );
+        var payload = JSON.stringify(store);
+        window.WavesGalleryDB.saveGallery(payload, function () {
+          clearLegacyGalleryLocalStorage();
+          finish(store);
+        });
       });
     });
   }
@@ -1540,6 +1572,8 @@
     renderIntoPage: renderIntoPage,
     isStorageReady: isStorageReady,
     whenStorageReady: whenStorageReady,
+    exportDeployGalleryStore: exportDeployGalleryStore,
+    SITE_GALLERY_URL: SITE_GALLERY_URL,
   };
 
   initGalleryStorage(function () {

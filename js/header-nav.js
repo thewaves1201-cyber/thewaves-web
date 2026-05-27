@@ -1,13 +1,7 @@
 (function () {
   "use strict";
 
-  if (
-    window.WavesSiteSettings &&
-    typeof window.WavesSiteSettings.applyToDocument === "function"
-  ) {
-    window.WavesSiteSettings.applyToDocument();
-  }
-
+  function initHeaderNav() {
   var header = document.querySelector(".site-header");
   var mega = document.getElementById("mega-panel");
   var navItems = document.querySelectorAll(".nav__item[data-mega]");
@@ -146,4 +140,21 @@
 
   updateHeaderScrollState();
   window.addEventListener("scroll", updateHeaderScrollState, { passive: true });
+  }
+
+  function bootHeaderNav() {
+    if (
+      window.WavesSiteSettings &&
+      typeof window.WavesSiteSettings.applyToDocument === "function"
+    ) {
+      window.WavesSiteSettings.applyToDocument();
+    }
+    initHeaderNav();
+  }
+
+  if (window.WavesSiteSettings && typeof window.WavesSiteSettings.whenSiteReady === "function") {
+    window.WavesSiteSettings.whenSiteReady(bootHeaderNav);
+  } else {
+    bootHeaderNav();
+  }
 })();

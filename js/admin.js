@@ -14,6 +14,7 @@
   var btnSave = document.getElementById("btn-save");
   var btnReset = document.getElementById("btn-reset");
   var btnExport = document.getElementById("btn-export");
+  var btnExportDeploy = document.getElementById("btn-export-deploy");
   var importFile = document.getElementById("import-file");
   var loginError = document.getElementById("login-error");
 
@@ -1225,6 +1226,38 @@
       renderGalleriesEditor();
       updateStorageMeter();
       showMessage("초기화했습니다.", "ok");
+    });
+  }
+
+  function downloadTextFile(filename, text, mime) {
+    var blob = new Blob([text], {
+      type: mime || "application/json;charset=utf-8",
+    });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  if (btnExportDeploy) {
+    btnExportDeploy.addEventListener("click", function () {
+      if (!window.WavesGallery || !window.WavesSiteSettings) {
+        showMessage("갤러리·사이트 모듈을 불러오지 못했습니다.", "err");
+        return;
+      }
+      var siteText = window.WavesSiteSettings.exportDeploySiteSettings(
+        buildSitePayloadForSave()
+      );
+      var galleryText = window.WavesGallery.exportDeployGalleryStore(liveStore);
+      downloadTextFile("site.json", siteText);
+      window.setTimeout(function () {
+        downloadTextFile("gallery.json", galleryText);
+      }, 250);
+      showMessage(
+        "site.json · gallery.json을 내려받았습니다. 프로젝트 data/ 폴더에 넣은 뒤 git push 하면 Vercel에 반영됩니다.",
+        "ok"
+      );
     });
   }
 

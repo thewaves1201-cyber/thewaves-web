@@ -1,0 +1,45 @@
+{
+  "logoUrl": "",
+  "aboutHeroUrl": "",
+  "youtubeUrl": "https://www.youtube.com/",
+  "instagramUrl": "https://www.instagram.com/",
+  "naverUrl": "https://blog.naver.com/",
+  "design": {
+    "sectionGap": 96,
+    "hubTopGap": 96,
+    "hubIntroGap": 96,
+    "hubSectionGap": 96,
+    "hubHeroTitleSize": 44,
+    "hubHeroToSubnavGap": 18,
+    "hubSubnavSize": 15,
+    "hubSubnavGap": 28,
+    "titleLineGap": 38,
+    "titleToLineGap": 38,
+    "lineToThumbGap": 38,
+    "hubTitleToLineGap": 38,
+    "hubLineToThumbGap": 38,
+    "titleSize": 19,
+    "cardTitleSize": 12,
+    "cardDescSize": 10
+  },
+  "designPages": {
+    "index": {
+      "sectionGap": 96,
+      "hubTopGap": 96,
+      "hubIntroGap": 96,
+      "hubSectionGap": 96,
+      "hubHeroTitleSize": 44,
+      "hubHeroToSubnavGap": 18,
+      "hubSubnavSize": 15,
+      "hubSubnavGap": 28,
+      "titleLineGap": 38,
+      "titleToLineGap": 38,
+      "lineToThumbGap": 38,
+      "hubTitleToLineGap": 38,
+      "hubLineToThumbGap": 38,
+      "titleSize": 19,
+      "cardTitleSize": 12,
+      "cardDescSize": 10
+    }
+  }
+}
