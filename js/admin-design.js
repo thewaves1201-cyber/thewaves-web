@@ -240,8 +240,25 @@
     },
   ];
 
+  var ABOUT_HUB_KEYS = {
+    hubTopGap: true,
+    hubHeroTitleSize: true,
+    hubHeroToSubnavGap: true,
+  };
+
   function getFieldsForPage(pageId) {
     if (pageId === "index") return INDEX_FIELDS;
+    if (pageId === "about") {
+      return HUB_FIELDS.filter(function (f) {
+        return ABOUT_HUB_KEYS[f.key];
+      }).map(function (f) {
+        if (f.key !== "hubHeroToSubnavGap") return f;
+        return Object.assign({}, f, {
+          label: "대제목 ↔ 대표 이미지",
+          hint: "ABOUT US 글자와 아래 히어로 이미지 사이",
+        });
+      });
+    }
     if (pageId === "contact") return HUB_FIELDS.concat(CONTACT_FIELDS);
     if (pageId === "partners") {
       return HUB_FIELDS.filter(function (f) {

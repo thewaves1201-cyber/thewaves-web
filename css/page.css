@@ -1511,12 +1511,11 @@ a.branded-hub__more {
 
 .page-about .about-page__hero {
   text-align: center;
-  padding: clamp(24px, 4vw, 40px) var(--site-gutter, 32px)
-    clamp(20px, 3vw, 28px);
+  padding: var(--hub-top-gap, clamp(24px, 4vw, 40px)) var(--site-gutter, 32px) 0;
 }
 
 .page-about .about-page__hero .branded-hub__title {
-  margin: 0;
+  margin: 0 0 var(--hub-hero-to-subnav-gap, 18px);
 }
 
 .about-hero {
