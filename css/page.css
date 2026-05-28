@@ -386,6 +386,18 @@
   background: #1a1a1a;
 }
 
+/* styles.css img { max-width:100% } 가 네이버 지도 타일을 깨뜨리는 것 방지 */
+.contact-map img,
+#naver-map img {
+  max-width: none !important;
+}
+
+/* body color:#fff 상속 → 인포윈도우 글자가 안 보이는 문제 */
+.contact-map .waves-map-infowindow,
+.contact-map .waves-map-infowindow * {
+  color: #1a1a1a !important;
+}
+
 .contact-map__fallback {
   margin: 0;
   padding: 12px 14px;

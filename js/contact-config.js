@@ -13,6 +13,13 @@
 
   window.WAVES_NAVER_MAPS_CLIENT_ID = "2f198c8dzd";
 
+  /** 역삼로 217 — Geocoder 실패 시 지도 기본 위치 */
+  window.WAVES_MAP_CENTER = {
+    lat: 37.4972,
+    lng: 127.0412,
+    address: "서울 강남구 역삼로 217",
+  };
+
   window.WAVES_CONTACT_SUCCESS_MSG =
     "문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.";
 
