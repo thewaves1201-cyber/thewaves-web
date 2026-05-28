@@ -32,7 +32,7 @@
       s.defer = true;
       s.dataset.waves = "naver-maps-js";
       s.src =
-        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=" +
+        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=" +
         encodeURIComponent(cid) +
         "&submodules=geocoder";
       s.onload = function () {
@@ -112,6 +112,21 @@
     infowindow.open(map, marker);
   }
 
+  function showFallback(reason) {
+    var msg = "지도를 불러오지 못했습니다.";
+    if (reason === "missing_client_id") msg = "네이버 지도 Client ID가 없습니다.";
+    if (reason === "script_load_failed") msg = "네이버 지도 스크립트 로드에 실패했습니다.";
+    if (reason === "geocoder_unavailable") msg = "네이버 지도 Geocoder 모듈이 준비되지 않았습니다.";
+    if (reason === "geocode_empty") msg = "주소 검색 결과가 없습니다.";
+    if (reason === "geocode_error") msg = "주소를 좌표로 변환하는 중 오류가 발생했습니다.";
+
+    // 지도 컨테이너를 클릭 불가한 안내 박스로 대체
+    el.innerHTML =
+      '<p class="contact-map__fallback"><strong>' +
+      msg +
+      "</strong><br/>네이버 클라우드 콘솔에서 Maps 웹 서비스 URL(도메인) 등록 여부를 확인해 주세요.</p>";
+  }
+
   ensureApiLoaded()
     .then(function () {
       return geocode("서울 강남구 역삼로 217");
@@ -119,8 +134,8 @@
     .then(function (center) {
       initMap(center);
     })
-    .catch(function () {
-      // 실패 시 기존 "네이버 지도에서 보기" 링크로 유도되므로 조용히 무시
+    .catch(function (err) {
+      showFallback(err && err.message ? err.message : "unknown");
     });
 })();
 

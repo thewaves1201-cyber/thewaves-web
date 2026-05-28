@@ -386,26 +386,19 @@
   background: #1a1a1a;
 }
 
-.contact-map__open {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding: 10px 12px;
-  font-family: var(--font-display);
+.contact-map__fallback {
+  margin: 0;
+  padding: 12px 14px;
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  background: #2a2a2a;
-  text-decoration: none;
-  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+  background: #1a1a1a;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.contact-map__open:hover {
-  background: #3a3a3a;
-  color: var(--brand-orange);
+.contact-map__fallback strong {
+  color: #fff;
+  font-weight: 700;
 }
 
 @media (min-width: 900px) {
