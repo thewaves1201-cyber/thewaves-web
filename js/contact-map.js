@@ -14,6 +14,42 @@
       var cid = getClientId();
       if (!cid) return reject(new Error("missing_client_id"));
 
+      function loadOnce(paramName) {
+        return new Promise(function (resolveLoad, rejectLoad) {
+          var existing = document.querySelector(
+            'script[data-waves="naver-maps-js"][data-param="' + paramName + '"]'
+          );
+          if (existing) {
+            existing.addEventListener("load", function () {
+              resolveLoad();
+            });
+            existing.addEventListener("error", function () {
+              rejectLoad(new Error("script_load_failed"));
+            });
+            return;
+          }
+
+          var s = document.createElement("script");
+          s.async = true;
+          s.defer = true;
+          s.dataset.waves = "naver-maps-js";
+          s.dataset.param = paramName;
+          s.src =
+            "https://oapi.map.naver.com/openapi/v3/maps.js?" +
+            paramName +
+            "=" +
+            encodeURIComponent(cid) +
+            "&submodules=geocoder";
+          s.onload = function () {
+            resolveLoad();
+          };
+          s.onerror = function () {
+            rejectLoad(new Error("script_load_failed"));
+          };
+          document.head.appendChild(s);
+        });
+      }
+
       var existing = document.querySelector(
         'script[data-waves="naver-maps-js"]'
       );
@@ -27,21 +63,19 @@
         return;
       }
 
-      var s = document.createElement("script");
-      s.async = true;
-      s.defer = true;
-      s.dataset.waves = "naver-maps-js";
-      s.src =
-        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=" +
-        encodeURIComponent(cid) +
-        "&submodules=geocoder";
-      s.onload = function () {
-        resolve();
-      };
-      s.onerror = function () {
-        reject(new Error("script_load_failed"));
-      };
-      document.head.appendChild(s);
+      // ncpKeyId / ncpClientId 혼용 이슈가 있어 둘 다 순차 시도합니다.
+      // 1) ncpKeyId (신규 통합 콘솔 권장)
+      // 2) ncpClientId (레거시 문서/키)
+      loadOnce("ncpKeyId")
+        .catch(function () {
+          return loadOnce("ncpClientId");
+        })
+        .then(function () {
+          resolve();
+        })
+        .catch(function (e) {
+          reject(e);
+        });
     });
   }
 
