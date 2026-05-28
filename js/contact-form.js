@@ -11,8 +11,35 @@
     return (window.WAVES_CONTACT_EMAIL || "").trim();
   }
 
+  function isPrivateHost(host) {
+    if (!host) return false;
+    if (host === "localhost" || host === "127.0.0.1") return true;
+    if (/^10\.\d+\.\d+\.\d+$/.test(host)) return true;
+    if (/^192\.168\.\d+\.\d+$/.test(host)) return true;
+    // 172.16.0.0 ~ 172.31.255.255
+    var m = host.match(/^172\.(\d+)\.\d+\.\d+$/);
+    if (m) {
+      var n = parseInt(m[1], 10);
+      if (n >= 16 && n <= 31) return true;
+    }
+    return false;
+  }
+
   function getWebhookUrl() {
+    // 1) 직접 지정 (기존 방식)
     var url = (window.WAVES_CONTACT_WEBHOOK || "").trim();
+
+    // 2) 자동 선택 (내부: LOCAL / 외부: PUBLIC)
+    if (!url) {
+      var host = window.location.hostname;
+      var isPrivate = isPrivateHost(host);
+      url = (
+        (isPrivate
+          ? window.WAVES_CONTACT_WEBHOOK_LOCAL
+          : window.WAVES_CONTACT_WEBHOOK_PUBLIC) || ""
+      ).trim();
+    }
+
     if (!url) return "";
     var host = window.location.hostname;
     if (host === "127.0.0.1") {
