@@ -11,6 +11,8 @@
   window.WAVES_EMAILJS_SERVICE_ID = "service_yzimbob";
   window.WAVES_EMAILJS_TEMPLATE_ID = "template_qsdintg";
 
+  window.WAVES_NAVER_MAPS_CLIENT_ID = "2f198c8dzd";
+
   window.WAVES_CONTACT_SUCCESS_MSG =
     "문의가 접수되었습니다. 빠른 시일 내에 연락드리겠습니다.";
 

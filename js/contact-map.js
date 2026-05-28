@@ -1,0 +1,126 @@
+(function () {
+  "use strict";
+
+  var el = document.getElementById("naver-map");
+  if (!el) return;
+
+  function getClientId() {
+    return (window.WAVES_NAVER_MAPS_CLIENT_ID || "").trim();
+  }
+
+  function ensureApiLoaded() {
+    return new Promise(function (resolve, reject) {
+      if (window.naver && window.naver.maps) return resolve();
+      var cid = getClientId();
+      if (!cid) return reject(new Error("missing_client_id"));
+
+      var existing = document.querySelector(
+        'script[data-waves="naver-maps-js"]'
+      );
+      if (existing) {
+        existing.addEventListener("load", function () {
+          resolve();
+        });
+        existing.addEventListener("error", function () {
+          reject(new Error("script_load_failed"));
+        });
+        return;
+      }
+
+      var s = document.createElement("script");
+      s.async = true;
+      s.defer = true;
+      s.dataset.waves = "naver-maps-js";
+      s.src =
+        "https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=" +
+        encodeURIComponent(cid) +
+        "&submodules=geocoder";
+      s.onload = function () {
+        resolve();
+      };
+      s.onerror = function () {
+        reject(new Error("script_load_failed"));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  function geocode(address) {
+    return new Promise(function (resolve, reject) {
+      if (
+        !window.naver ||
+        !window.naver.maps ||
+        !window.naver.maps.Service ||
+        typeof window.naver.maps.Service.geocode !== "function"
+      ) {
+        return reject(new Error("geocoder_unavailable"));
+      }
+
+      window.naver.maps.Service.geocode(
+        { query: address },
+        function (status, response) {
+          if (status === window.naver.maps.Service.Status.ERROR) {
+            return reject(new Error("geocode_error"));
+          }
+          var addresses =
+            response && response.v2 && Array.isArray(response.v2.addresses)
+              ? response.v2.addresses
+              : [];
+          if (!addresses.length) return reject(new Error("geocode_empty"));
+          var item = addresses[0];
+          resolve({
+            lat: parseFloat(item.y),
+            lng: parseFloat(item.x),
+            roadAddress: item.roadAddress || "",
+            jibunAddress: item.jibunAddress || "",
+          });
+        }
+      );
+    });
+  }
+
+  function initMap(center) {
+    var map = new window.naver.maps.Map(el, {
+      center: new window.naver.maps.LatLng(center.lat, center.lng),
+      zoom: 16,
+      minZoom: 10,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: window.naver.maps.Position.TOP_RIGHT,
+      },
+    });
+
+    var marker = new window.naver.maps.Marker({
+      position: new window.naver.maps.LatLng(center.lat, center.lng),
+      map: map,
+    });
+
+    var content =
+      '<div style="padding:8px 10px; font-size:12px; line-height:1.35; white-space:nowrap;">' +
+      '<div style="font-weight:700; letter-spacing:0.02em;">THE WAVES</div>' +
+      '<div style="opacity:0.85; margin-top:2px;">서울 강남구 역삼로 217</div>' +
+      "</div>";
+
+    var infowindow = new window.naver.maps.InfoWindow({
+      content: content,
+      borderWidth: 0,
+      backgroundColor: "#ffffff",
+      disableAnchor: true,
+      pixelOffset: new window.naver.maps.Point(0, -10),
+    });
+
+    infowindow.open(map, marker);
+  }
+
+  ensureApiLoaded()
+    .then(function () {
+      return geocode("서울 강남구 역삼로 217");
+    })
+    .then(function (center) {
+      initMap(center);
+    })
+    .catch(function () {
+      // 실패 시 기존 "네이버 지도에서 보기" 링크로 유도되므로 조용히 무시
+    });
+})();
+
