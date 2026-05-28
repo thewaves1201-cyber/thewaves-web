@@ -142,7 +142,11 @@
           cb(null, dataUrl);
           return;
         }
-        if (out.length >= before && before < 180000) {
+        if (
+          !o.preferQuality &&
+          out.length >= before &&
+          before < 180000
+        ) {
           cb(null, dataUrl);
           return;
         }

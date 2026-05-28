@@ -12,6 +12,7 @@
   var siteSettingsRoot = document.getElementById("site-settings-root");
   var msgEl = document.getElementById("admin-message");
   var btnSave = document.getElementById("btn-save");
+  var btnRecompressHq = document.getElementById("btn-recompress-hq");
   var btnReset = document.getElementById("btn-reset");
   var btnExport = document.getElementById("btn-export");
   var btnExportDeploy = document.getElementById("btn-export-deploy");
@@ -61,20 +62,37 @@
     if (isPartnerLogoSection(pageId, sectionId)) {
       return compressOptsLogo(file);
     }
-    if (sectionId === "hero") {
-      return { maxDimension: 1600, quality: 0.8 };
+    var variant = getPageSectionVariant(pageId, sectionId);
+    if (sectionId === "hero" || variant === "hero") {
+      return { maxDimension: 2560, quality: 0.88 };
     }
-    return { maxDimension: 1000, quality: 0.74 };
+    if (variant === "wide") {
+      return { maxDimension: 1800, quality: 0.84 };
+    }
+    if (variant === "square" || variant === "portrait") {
+      return { maxDimension: 1400, quality: 0.82 };
+    }
+    return { maxDimension: 1600, quality: 0.82 };
+  }
+
+  function compressOptsHighQuality(pageId, sectionId, file) {
+    var o = compressOptsForSection(pageId, sectionId, file);
+    o.preferQuality = true;
+    return o;
   }
 
   function compressOptsAggressive(pageId, sectionId) {
     if (isPartnerLogoSection(pageId, sectionId)) {
       return compressOptsLogo();
     }
-    if (sectionId === "hero") {
-      return { maxDimension: 1280, quality: 0.68 };
+    var variant = getPageSectionVariant(pageId, sectionId);
+    if (sectionId === "hero" || variant === "hero") {
+      return { maxDimension: 1920, quality: 0.76 };
     }
-    return { maxDimension: 800, quality: 0.62 };
+    if (variant === "wide") {
+      return { maxDimension: 1400, quality: 0.72 };
+    }
+    return { maxDimension: 1200, quality: 0.68 };
   }
 
   function compressOptsEmergency(pageId, sectionId) {
@@ -101,8 +119,8 @@
 
   function compressOptsLogo(file) {
     return {
-      maxDimension: 720,
-      quality: 0.9,
+      maxDimension: 1200,
+      quality: 0.92,
       preservePng: true,
       backgroundColor: logoCompressBg(),
     };
@@ -162,7 +180,9 @@
         ? compressOptsEmergency
         : mode === "aggressive"
           ? compressOptsAggressive
-          : compressOptsForSection;
+          : mode === "highquality"
+            ? compressOptsHighQuality
+            : compressOptsForSection;
     forEachStoreDataImage(
       liveStore,
       function (item, pageId, sectionId, next) {
@@ -179,25 +199,21 @@
     );
   }
 
-  function compressLogoPreview(done) {
+  function compressLogoPreview(done, highQuality) {
     var IC = imageCompress();
     var prev = document.getElementById("site-logo-preview");
     if (!IC || !prev || !IC.isDataImage(prev.src)) {
       done();
       return;
     }
-    IC.compressDataUrl(
-      prev.src,
-      {
-        maxDimension: 480,
-        quality: 0.88,
-        preservePng: /image\/png/i.test(prev.src),
-      },
-      function (_err, url) {
-        if (url) prev.src = url;
-        done();
-      }
-    );
+    var logoOpts = Object.assign(compressOptsLogo(), {
+      preservePng: /image\/png/i.test(prev.src),
+    });
+    if (highQuality) logoOpts.preferQuality = true;
+    IC.compressDataUrl(prev.src, logoOpts, function (_err, url) {
+      if (url) prev.src = url;
+      done();
+    });
   }
 
   function updateStorageMeter() {
@@ -927,7 +943,7 @@
       hf.addEventListener("change", function () {
         var f = hf.files && hf.files[0];
         if (!f) return;
-        fileToDataUrl(f, { maxWidth: 1920, maxHeight: 1080, quality: 0.88 }, function (d) {
+        fileToDataUrl(f, { maxDimension: 2560, quality: 0.88 }, function (d) {
           heroInp.value = "";
           heroPrev.src = d;
           hf.value = "";
@@ -1206,6 +1222,32 @@
   if (btnSave) {
     btnSave.addEventListener("click", function () {
       runSaveWithCompress("normal");
+    });
+  }
+
+  if (btnRecompressHq) {
+    btnRecompressHq.addEventListener("click", function () {
+      if (
+        !window.confirm(
+          "저장된 갤러리·로고 이미지를 고화질 기준(히어로 최대 2560px, 랜딩 띠 1800px 등)으로 다시 압축합니다. 용량이 커질 수 있습니다. 계속할까요?"
+        )
+      ) {
+        return;
+      }
+      btnRecompressHq.disabled = true;
+      showMessage("고화질로 재압축 중… 잠시만 기다려 주세요.", "ok");
+      compressGalleryStore("highquality", function () {
+        compressLogoPreview(function () {
+          renderGalleriesEditor();
+          renderSiteSettings();
+          updateStorageMeter();
+          btnRecompressHq.disabled = false;
+          showMessage(
+            "재압축했습니다. 저장 → 배포용 파일보내기 → data/에 넣고 push 하면 Vercel에 반영됩니다. 흐린 항목은 원본 파일로 다시 올리는 것이 가장 좋습니다.",
+            "ok"
+          );
+        }, true);
+      });
     });
   }
 
