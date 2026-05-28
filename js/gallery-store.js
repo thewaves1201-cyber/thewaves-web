@@ -818,8 +818,13 @@
   }
 
   function resolveGalleryStore(fromSite, fromLs, fromIdb) {
+    /* 로컬 admin 저장(IndexedDB)이 있으면 우선. pickRicher로 data/gallery.json(용량 큼)이
+       매 새로고침마다 IDB를 덮어 admin 변경이 index에 안 보이던 문제 방지 */
+    if (fromIdb && fromIdb.pages && Object.keys(fromIdb.pages).length) {
+      return ensurePagesShape(fromIdb);
+    }
     var store = defaultStore();
-    [fromSite, fromIdb, fromLs].forEach(function (src) {
+    [fromSite, fromLs].forEach(function (src) {
       if (src) store = pickRicherGalleryStore(store, src);
     });
     return store;
