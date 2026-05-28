@@ -57,11 +57,32 @@
       return Promise.reject(new Error("emailjs_not_configured"));
     }
 
+    var submittedAt = new Date().toLocaleString("ko-KR");
+    var fullMessage =
+      "이름: " +
+      data.name +
+      "\n연락처: " +
+      data.contact +
+      "\n\n문의 내용:\n" +
+      data.contents +
+      "\n\n접수 시각: " +
+      submittedAt;
+
+    /* EmailJS 템플릿 변수명이 서비스마다 달라 흔한 이름을 함께 전달 */
     var templateParams = {
       name: data.name,
+      from_name: data.name,
+      user_name: data.name,
       contact: data.contact,
+      phone: data.contact,
+      user_phone: data.contact,
+      email: data.contact.indexOf("@") >= 0 ? data.contact : "",
+      reply_to: data.contact.indexOf("@") >= 0 ? data.contact : getEmail(),
       contents: data.contents,
-      submitted_at: new Date().toLocaleString("ko-KR"),
+      message: fullMessage,
+      body: data.contents,
+      user_message: data.contents,
+      submitted_at: submittedAt,
       to_email: getEmail(),
     };
 

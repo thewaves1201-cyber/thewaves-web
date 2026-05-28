@@ -2,8 +2,19 @@
   "use strict";
 
   /**
-   * 문의 폼 → EmailJS → Gmail (권장)
-   * Formsubmit은 수신 안정성 이슈로 제거했습니다.
+   * 문의 폼 → EmailJS → Gmail
+   *
+   * EmailJS 대시보드 → Email Templates → template_qsdintg 본문에 아래를 넣어야
+   * 연락처·내용이 메일에 보입니다 (기본 템플릿은 {{name}}만 표시됨).
+   *
+   * <p><strong>이름:</strong> {{name}}</p>
+   * <p><strong>연락처:</strong> {{contact}}</p>
+   * <p><strong>내용:</strong></p>
+   * <p style="white-space:pre-wrap">{{contents}}</p>
+   * <p><small>{{submitted_at}}</small></p>
+   *
+   * 또는 본문 한 줄: <pre>{{message}}</pre>
+   * To Email: {{to_email}} 또는 contact@thewaves.kr
    */
   window.WAVES_CONTACT_EMAIL = "contact@thewaves.kr";
 
