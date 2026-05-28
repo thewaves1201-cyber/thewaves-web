@@ -361,12 +361,20 @@ a {
   overflow: hidden;
 }
 
-.hero-slide__bg {
+.hero-slide__media {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.02);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-slide__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* 배경 cover + scale(1.02)보다 선명 (특히 레티나·대형 화면) */
 }
 
 .hero-slide__shade {

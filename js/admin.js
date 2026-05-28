@@ -64,7 +64,7 @@
     }
     var variant = getPageSectionVariant(pageId, sectionId);
     if (sectionId === "hero" || variant === "hero") {
-      return { maxDimension: 2560, quality: 0.88 };
+      return { maxDimension: 3840, quality: 0.92 };
     }
     if (variant === "wide") {
       return { maxDimension: 1800, quality: 0.84 };
@@ -87,7 +87,7 @@
     }
     var variant = getPageSectionVariant(pageId, sectionId);
     if (sectionId === "hero" || variant === "hero") {
-      return { maxDimension: 1920, quality: 0.76 };
+      return { maxDimension: 2560, quality: 0.82 };
     }
     if (variant === "wide") {
       return { maxDimension: 1400, quality: 0.72 };
@@ -558,6 +558,43 @@
       "</div>";
   }
 
+  function isHeroSection(pageId, sectionId) {
+    return (
+      sectionId === "hero" || getPageSectionVariant(pageId, sectionId) === "hero"
+    );
+  }
+
+  function afterImageUploadMessage(pageId, sectionId, dataUrl) {
+    if (!isHeroSection(pageId, sectionId)) {
+      showMessage("이미지를 업로드용 크기로 줄였습니다.", "ok");
+      return;
+    }
+    var probe = new Image();
+    probe.onload = function () {
+      var w = probe.naturalWidth || 0;
+      var h = probe.naturalHeight || 0;
+      if (w < 1920) {
+        showMessage(
+          "히어로는 가로 1920px 이상 원본을 권장합니다. 지금 " +
+            w +
+            "×" +
+            h +
+            "px — 전체 화면에서 흐려 보일 수 있습니다. 원본 파일로 다시 올려 주세요.",
+          "err"
+        );
+      } else {
+        showMessage(
+          "히어로 이미지 준비됨 (" + w + "×" + h + "px). [저장] 후 배포용 파일보내기 하세요.",
+          "ok"
+        );
+      }
+    };
+    probe.onerror = function () {
+      showMessage("히어로 이미지를 올렸습니다. [저장]을 눌러 주세요.", "ok");
+    };
+    probe.src = dataUrl;
+  }
+
   function fileToDataUrl(file, opts, done) {
     if (typeof opts === "function") {
       done = opts;
@@ -736,17 +773,20 @@
           t.files[0],
           compressOptsForSection(currentPageId, sec, t.files[0]),
           function (dataUrl) {
-          syncDockField("image", dataUrl);
-          var urlInp = document.getElementById("dock-image-url");
-          if (urlInp) urlInp.value = "";
-          t.value = "";
-          showMessage(
-            getSectionVariant(sec) === "partner"
-              ? "로고를 저장했습니다. 반드시 [저장] 버튼을 눌러 주세요."
-              : "이미지를 업로드용 크기로 줄였습니다.",
-            "ok"
-          );
-        });
+            syncDockField("image", dataUrl);
+            var urlInp = document.getElementById("dock-image-url");
+            if (urlInp) urlInp.value = "";
+            t.value = "";
+            if (getSectionVariant(sec) === "partner") {
+              showMessage(
+                "로고를 저장했습니다. 반드시 [저장] 버튼을 눌러 주세요.",
+                "ok"
+              );
+              return;
+            }
+            afterImageUploadMessage(currentPageId, sec, dataUrl);
+          }
+        );
       }
     });
     dock.addEventListener("click", function (e) {
