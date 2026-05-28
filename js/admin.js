@@ -785,6 +785,11 @@
               return;
             }
             afterImageUploadMessage(currentPageId, sec, dataUrl);
+            showMessage(
+              (msgEl && msgEl.textContent ? "" : "") +
+                " 변경 후 반드시 상단 [저장]을 눌러야 index.html에 반영됩니다.",
+              "ok"
+            );
           }
         );
       }
@@ -1209,7 +1214,11 @@
         : " 메인·서브 페이지도 " +
           origin +
           " 과 동일한 주소(호스트·포트)로 열고 새로고침하세요. localhost와 127.0.0.1은 저장소가 다릅니다.";
-    showMessage("저장했습니다." + hint, "ok");
+    showMessage(
+      "저장했습니다. index.html을 새로고침하거나(또는 탭을 다시 클릭) 확인하세요." +
+        hint,
+      "ok"
+    );
     updateStorageMeter();
   }
 

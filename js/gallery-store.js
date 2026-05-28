@@ -4,9 +4,11 @@
   var STORAGE_KEY_V1 = "waves_gallery_v1";
   var STORAGE_KEY = "waves_gallery_v2";
   var SITE_GALLERY_URL = "data/gallery.json";
+  var GALLERY_REV_KEY = "waves_gallery_rev";
 
   var memoryStore = null;
   var storageReady = false;
+  var lastGalleryRev = "";
 
   var ADMIN_PAGE_LIST = [
     {
@@ -1085,6 +1087,12 @@
     } catch (e) {}
   }
 
+  function bumpGalleryRev() {
+    try {
+      localStorage.setItem(GALLERY_REV_KEY, String(Date.now()));
+    } catch (e) {}
+  }
+
   function saveRaw(store) {
     memoryStore = ensurePagesShape(store);
     var json = JSON.stringify(memoryStore);
@@ -1092,6 +1100,7 @@
       window.WavesGalleryDB.saveGallery(json, function (err) {
         if (!err) {
           clearLegacyGalleryLocalStorage();
+          bumpGalleryRev();
           return;
         }
         try {
@@ -1103,6 +1112,7 @@
       return;
     }
     localStorage.setItem(STORAGE_KEY, json);
+    bumpGalleryRev();
   }
 
   function saveRawAsync(store, cb) {
@@ -1114,11 +1124,13 @@
       window.WavesGalleryDB.saveGallery(json, function (err) {
         if (!err) {
           clearLegacyGalleryLocalStorage();
+          bumpGalleryRev();
           cb(null);
           return;
         }
         try {
           localStorage.setItem(STORAGE_KEY, json);
+          bumpGalleryRev();
           cb(null);
         } catch (e2) {
           cb(e2);
@@ -1129,10 +1141,61 @@
 
     try {
       localStorage.setItem(STORAGE_KEY, json);
+      bumpGalleryRev();
       cb(null);
     } catch (e3) {
       cb(e3);
     }
+  }
+
+  function reloadFromPersistentStorage(done) {
+    done = done || function () {};
+    if (!window.WavesGalleryDB) {
+      done();
+      return;
+    }
+    window.WavesGalleryDB.loadGallery(function (err, json) {
+      if (err || !json) {
+        done();
+        return;
+      }
+      try {
+        memoryStore = ensurePagesShape(JSON.parse(json));
+        renderIntoPage();
+      } catch (e) {
+        /* ignore */
+      }
+      done();
+    });
+  }
+
+  function initGalleryRevListener() {
+    try {
+      lastGalleryRev = localStorage.getItem(GALLERY_REV_KEY) || "";
+    } catch (e) {
+      lastGalleryRev = "";
+    }
+
+    window.addEventListener("storage", function (e) {
+      if (e.key !== GALLERY_REV_KEY || !e.newValue || !storageReady) return;
+      if (e.newValue === lastGalleryRev) return;
+      lastGalleryRev = e.newValue;
+      reloadFromPersistentStorage();
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState !== "visible" || !storageReady) return;
+      var rev = "";
+      try {
+        rev = localStorage.getItem(GALLERY_REV_KEY) || "";
+      } catch (e2) {
+        rev = "";
+      }
+      if (rev && rev !== lastGalleryRev) {
+        lastGalleryRev = rev;
+        reloadFromPersistentStorage();
+      }
+    });
   }
 
   function loadRaw() {
@@ -1171,11 +1234,19 @@
           }
         }
 
+        var usedIdb =
+          fromIdb && fromIdb.pages && Object.keys(fromIdb.pages).length > 0;
         var store = resolveGalleryStore(
           fromSite,
           loadRawFromLocalStorage(),
           fromIdb
         );
+
+        if (usedIdb) {
+          finish(store);
+          return;
+        }
+
         var payload = JSON.stringify(store);
         window.WavesGalleryDB.saveGallery(payload, function () {
           clearLegacyGalleryLocalStorage();
@@ -1586,8 +1657,12 @@
     isStorageReady: isStorageReady,
     whenStorageReady: whenStorageReady,
     exportDeployGalleryStore: exportDeployGalleryStore,
+    reloadFromPersistentStorage: reloadFromPersistentStorage,
     SITE_GALLERY_URL: SITE_GALLERY_URL,
+    GALLERY_REV_KEY: GALLERY_REV_KEY,
   };
+
+  initGalleryRevListener();
 
   initGalleryStorage(function () {
     try {
