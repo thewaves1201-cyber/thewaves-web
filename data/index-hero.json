@@ -1,0 +1,69 @@
+{
+  "version": 2,
+  "hero": [
+    {
+      "image": "assets/hero/01.jpg",
+      "href": "#",
+      "title": "SKT ifland\naespa Fan Meetup Live",
+      "description": "걸그룹 '에스파' SKT ifland 팬밋업 송출",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/02.jpg",
+      "href": "#",
+      "title": "TRIPLE IZ\nPROJECT XR CONCERT",
+      "description": "프로젝트 걸그룹 및 XR 콘서트 제작",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/03.jpg",
+      "href": "#",
+      "title": "SECRET NUMBER\nXR CONCERT",
+      "description": "XR 콘서트 제작",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/04.jpg",
+      "href": "#",
+      "title": "SMILEGATE\nVIRTUAL ARTIST YUA(한유아)",
+      "description": "버츄얼 아티스트 콘텐츠 제작",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/05.jpg",
+      "href": "#",
+      "title": "MBC x izx!\nPROJECT & SHOWCASE",
+      "description": "MBC 방영 프로젝트 보이그룹 '아이즈엑스' 제작",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/06.jpg",
+      "href": "#",
+      "title": "HYOLYN\nMETAVERSE CONCERT",
+      "description": "효린 메타버스 콘서트 제작지원",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/07.jpg",
+      "href": "#",
+      "title": "SKT ifland\nGLOBAL TRAILER",
+      "description": "트레일러 콘텐츠 제작",
+      "eyebrow": "",
+      "showPlay": false
+    },
+    {
+      "image": "assets/hero/08.jpg",
+      "href": "#",
+      "title": "SKT ifland\nVIRTUAL ARTIST iFLANDIES",
+      "description": "버츄얼 아티스트 제작",
+      "eyebrow": "",
+      "showPlay": false
+    }
+  ]
+}

@@ -4,8 +4,9 @@
   var STORAGE_KEY_V1 = "waves_gallery_v1";
   var STORAGE_KEY = "waves_gallery_v2";
   var SITE_GALLERY_URL = "data/gallery.json";
-  /** gallery.json 배포 시 숫자 올리면 CDN·브라우저 캐시 무효화 */
-  var GALLERY_DEPLOY_REV = "20260528-hero8";
+  var SITE_INDEX_HERO_URL = "data/index-hero.json";
+  /** gallery / hero 배포 시 숫자 올리면 CDN·브라우저 캐시 무효화 */
+  var GALLERY_DEPLOY_REV = "20260528-hero-assets";
   var GALLERY_REV_KEY = "waves_gallery_rev";
 
   var memoryStore = null;
@@ -847,34 +848,69 @@
     return store;
   }
 
-  function fetchBundledGallery(cb) {
+  function galleryFetchUrl(path) {
+    return (
+      path +
+      (GALLERY_DEPLOY_REV
+        ? (path.indexOf("?") >= 0 ? "&" : "?") +
+          "v=" +
+          encodeURIComponent(GALLERY_DEPLOY_REV)
+        : "")
+    );
+  }
+
+  function fetchJsonUrl(url, cb) {
     cb = cb || function () {};
     if (typeof fetch !== "function") {
       cb(null);
       return;
     }
-    var url =
-      SITE_GALLERY_URL +
-      (GALLERY_DEPLOY_REV
-        ? "?v=" + encodeURIComponent(GALLERY_DEPLOY_REV)
-        : "");
-    fetch(url, { cache: "no-store" })
+    fetch(galleryFetchUrl(url), { cache: "no-store" })
       .then(function (res) {
         if (!res.ok) return null;
         return res.json();
       })
       .then(function (raw) {
-        if (raw && raw.version === 2 && raw.pages) {
-          try {
-            cb(ensurePagesShape(raw));
-            return;
-          } catch (e) {}
-        }
-        cb(null);
+        cb(raw || null);
       })
       .catch(function () {
         cb(null);
       });
+  }
+
+  function mergeIndexHeroIntoStore(store, heroItems) {
+    if (!heroItems || !heroItems.length) return store;
+    var base = store || defaultStore();
+    if (!base.pages) base.pages = {};
+    if (!base.pages.index) base.pages.index = {};
+    base.pages.index.hero = heroItems.map(normalizeItem);
+    return base;
+  }
+
+  function fetchBundledIndexHero(cb) {
+    cb = cb || function () {};
+    fetchJsonUrl(SITE_INDEX_HERO_URL, function (raw) {
+      if (raw && raw.version === 2 && Array.isArray(raw.hero) && raw.hero.length) {
+        try {
+          cb(raw.hero.map(normalizeItem));
+          return;
+        } catch (e) {}
+      }
+      cb(null);
+    });
+  }
+
+  function fetchBundledGallery(cb) {
+    cb = cb || function () {};
+    fetchJsonUrl(SITE_GALLERY_URL, function (raw) {
+      if (raw && raw.version === 2 && raw.pages) {
+        try {
+          cb(ensurePagesShape(raw));
+          return;
+        } catch (e) {}
+      }
+      cb(null);
+    });
   }
 
   function exportDeployGalleryStore(store) {
@@ -1238,9 +1274,13 @@
       done(store);
     }
 
-    fetchBundledGallery(function (fromSite) {
+    function applyGallerySources(fromSite, fromHero) {
       if (!window.WavesGalleryDB) {
-        finish(resolveGalleryStore(fromSite, loadRawFromLocalStorage(), null));
+        var quick = mergeIndexHeroIntoStore(
+          resolveGalleryStore(fromSite, loadRawFromLocalStorage(), null),
+          fromHero
+        );
+        finish(quick);
         return;
       }
 
@@ -1256,10 +1296,13 @@
 
         var usedIdb =
           fromIdb && fromIdb.pages && Object.keys(fromIdb.pages).length > 0;
-        var store = resolveGalleryStore(
-          fromSite,
-          loadRawFromLocalStorage(),
-          fromIdb
+        var store = mergeIndexHeroIntoStore(
+          resolveGalleryStore(
+            fromSite,
+            loadRawFromLocalStorage(),
+            fromIdb
+          ),
+          fromHero
         );
 
         if (usedIdb && isGalleryAdminPage()) {
@@ -1272,6 +1315,23 @@
           clearLegacyGalleryLocalStorage();
           finish(store);
         });
+      });
+    }
+
+    var needsIndexHero = !!document.querySelector(
+      '[data-gallery-page="index"][data-gallery-id="hero"]'
+    );
+
+    fetchBundledIndexHero(function (fromHero) {
+      if (needsIndexHero && fromHero && fromHero.length) {
+        memoryStore = mergeIndexHeroIntoStore(defaultStore(), fromHero);
+        try {
+          renderIntoPage();
+        } catch (e) {}
+      }
+
+      fetchBundledGallery(function (fromSite) {
+        applyGallerySources(fromSite, fromHero);
       });
     });
   }
