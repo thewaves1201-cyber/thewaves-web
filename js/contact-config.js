@@ -21,7 +21,8 @@
    */
   window.WAVES_CONTACT_WEBHOOK_LOCAL =
     "http://172.30.1.1:5678/webhook/waves-contact";
-  window.WAVES_CONTACT_WEBHOOK_PUBLIC = ""; // 예: https://n8n.your-domain.com/webhook/waves-contact
+  window.WAVES_CONTACT_WEBHOOK_PUBLIC =
+    "https://carton-shopper-virus.ngrok-free.dev/webhook/waves-contact";
 
   /**
    * (하위 호환) 기존 단일 설정값.
