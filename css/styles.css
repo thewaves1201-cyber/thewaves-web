@@ -559,16 +559,8 @@ a {
   padding: 0 clamp(48px, 6vw, 72px);
 }
 
-.band__slider-wrap--orbit,
-#music-business .band__slider-wrap {
+.band__slider-wrap--orbit {
   overflow: hidden;
-}
-
-/* MUSIC BUSINESS만 swiper peek(부분 잘림) 때문에 좌/우 화살표 아래로 썸네일이 겹치는 현상 방지 */
-@media (min-width: 900px) {
-  #music-business .band__slider-wrap {
-    padding: 0 clamp(84px, 7vw, 120px);
-  }
 }
 
 .gallery-swiper--musicStrip {
@@ -603,6 +595,11 @@ a {
 
 .gallery-swiper--orbit.gallery-swiper--wide .gallery-card-wrap {
   width: 100%;
+}
+
+.gallery-swiper--orbit.gallery-swiper--square .gallery-card-wrap {
+  width: 100%;
+  max-width: none;
 }
 
 .gallery-swiper:not(.gallery-swiper--musicStrip) .swiper-slide {
