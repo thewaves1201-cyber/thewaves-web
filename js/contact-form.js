@@ -11,43 +11,12 @@
     return (window.WAVES_CONTACT_EMAIL || "").trim();
   }
 
-  function isPrivateHost(host) {
-    if (!host) return false;
-    if (host === "localhost" || host === "127.0.0.1") return true;
-    if (/^10\.\d+\.\d+\.\d+$/.test(host)) return true;
-    if (/^192\.168\.\d+\.\d+$/.test(host)) return true;
-    // 172.16.0.0 ~ 172.31.255.255
-    var m = host.match(/^172\.(\d+)\.\d+\.\d+$/);
-    if (m) {
-      var n = parseInt(m[1], 10);
-      if (n >= 16 && n <= 31) return true;
-    }
-    return false;
-  }
-
-  function getWebhookUrl() {
-    // 1) 직접 지정 (기존 방식)
-    var url = (window.WAVES_CONTACT_WEBHOOK || "").trim();
-
-    // 2) 자동 선택 (내부: LOCAL / 외부: PUBLIC)
-    if (!url) {
-      var host = window.location.hostname;
-      var isPrivate = isPrivateHost(host);
-      url = (
-        (isPrivate
-          ? window.WAVES_CONTACT_WEBHOOK_LOCAL
-          : window.WAVES_CONTACT_WEBHOOK_PUBLIC) || ""
-      ).trim();
-    }
-
-    if (!url) return "";
-    var host = window.location.hostname;
-    if (host === "127.0.0.1") {
-      url = url.replace(/\/\/localhost\b/i, "//127.0.0.1");
-    } else if (host === "localhost") {
-      url = url.replace(/\/\/127\.0\.0\.1\b/, "//localhost");
-    }
-    return url;
+  function getEmailJsSettings() {
+    return {
+      publicKey: (window.WAVES_EMAILJS_PUBLIC_KEY || "").trim(),
+      serviceId: (window.WAVES_EMAILJS_SERVICE_ID || "").trim(),
+      templateId: (window.WAVES_EMAILJS_TEMPLATE_ID || "").trim(),
+    };
   }
 
   function showStatus(msg, isError) {
@@ -78,67 +47,28 @@
     return true;
   }
 
-  /** Formsubmit — 정적 사이트에서 CORS 허용, 메일로 수신 */
-  function sendViaEmail(toEmail, data) {
-    var body = {
-      name: data.name,
-      _subject: "[The Waves] 문의 — " + data.name,
-      _template: "table",
-      _captcha: "false",
-      contact: data.contact,
-      message:
-        "연락처: " +
-        data.contact +
-        "\n\n내용:\n" +
-        data.contents +
-        "\n\n(접수 시각: " +
-        new Date().toLocaleString("ko-KR") +
-        ")",
-    };
-    if (data.contact.indexOf("@") !== -1) {
-      body.email = data.contact;
+  function sendViaEmailJs(data) {
+    var cfg = getEmailJsSettings();
+
+    if (!window.emailjs || typeof window.emailjs.send !== "function") {
+      return Promise.reject(new Error("emailjs_not_loaded"));
+    }
+    if (!cfg.publicKey || !cfg.serviceId || !cfg.templateId) {
+      return Promise.reject(new Error("emailjs_not_configured"));
     }
 
-    return fetch("https://formsubmit.co/ajax/" + encodeURIComponent(toEmail), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(body),
-    }).then(function (res) {
-      return res.json().then(function (json) {
-        if (!res.ok || (json && json.success === false)) {
-          var err = new Error((json && json.message) || "formsubmit");
-          throw err;
-        }
-        return json;
-      });
-    });
-  }
-
-  function sendViaN8n(url, data) {
-    var payload = {
+    var templateParams = {
       name: data.name,
       contact: data.contact,
       contents: data.contents,
-      submittedAt: new Date().toISOString(),
-      page: "contact.html",
+      submitted_at: new Date().toLocaleString("ko-KR"),
+      to_email: getEmail(),
     };
-    if (navigator.sendBeacon) {
-      var blob = new Blob([JSON.stringify(payload)], {
-        type: "application/json",
-      });
-      if (navigator.sendBeacon(url, blob)) {
-        return Promise.resolve();
-      }
-    }
-    return fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    }).then(function (res) {
-      if (!res.ok) throw new Error("HTTP " + res.status);
+
+    // publicKey는 init()에서 설정하지만, 로컬 옵션으로도 한번 더 전달
+    // (페이지에 init 스크립트가 누락되어도 동작하도록 안전장치)
+    return window.emailjs.send(cfg.serviceId, cfg.templateId, templateParams, {
+      publicKey: cfg.publicKey,
     });
   }
 
@@ -150,9 +80,7 @@
     if (!window.confirm("작성하신 내용으로 접수하시겠습니까?")) return;
 
     var email = getEmail();
-    var webhook = getWebhookUrl();
-
-    if (!email && !webhook) {
+    if (!email) {
       showStatus(
         window.WAVES_CONTACT_NOT_CONFIGURED_MSG ||
           "문의 접수 설정이 없습니다.",
@@ -164,29 +92,25 @@
     setBusy(true);
     showStatus("접수 중입니다…", false);
 
-    var main =
-      email
-        ? sendViaEmail(email, data)
-        : sendViaN8n(webhook, data);
-
-    main
+    sendViaEmailJs(data)
       .then(function () {
-        if (webhook && email) {
-          sendViaN8n(webhook, data).catch(function () {});
-        }
         showStatus(
-          window.WAVES_CONTACT_SUCCESS_MSG ||
-            "문의가 접수되었습니다.",
+          window.WAVES_CONTACT_SUCCESS_MSG || "문의가 접수되었습니다.",
           false
         );
         form.reset();
       })
-      .catch(function () {
+      .catch(function (err) {
+        var code = err && (err.text || err.message) ? String(err.text || err.message) : "";
+        var help =
+          code === "emailjs_not_loaded"
+            ? "EmailJS 라이브러리가 로드되지 않았습니다."
+            : code === "emailjs_not_configured"
+              ? "EmailJS 설정이 없습니다."
+              : "잠시 후 다시 시도해 주세요.";
+
         showStatus(
-          "접수에 실패했습니다. " +
-            (email
-              ? "잠시 후 다시 시도하거나 " + email + " 로 직접 메일 주세요."
-              : "contact@thewaves.kr 로 직접 메일 주세요."),
+          "접수에 실패했습니다. " + help + " 문제가 계속되면 " + email + " 로 직접 메일 주세요.",
           true
         );
       })

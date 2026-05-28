@@ -345,6 +345,23 @@
   cursor: wait;
 }
 
+.contact-form__fallback {
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.contact-form__fallback a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.contact-form__fallback a:hover {
+  color: var(--brand-orange);
+}
+
 .contact-form__status {
   margin: 0 0 12px;
   font-size: 13px;

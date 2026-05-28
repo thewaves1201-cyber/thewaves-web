@@ -117,6 +117,10 @@
               <textarea id="c-contents" name="contents" required></textarea>
             </div>
             <button type="submit" class="contact-form__submit">submit</button>
+            <p class="contact-form__fallback">
+              자동 접수가 원활하지 않을 경우
+              <a href="mailto:contact@thewaves.kr">contact@thewaves.kr</a>로 메일 주세요.
+            </p>
           </form>
         </div>
 
@@ -152,6 +156,20 @@
         <p class="site-footer__legal"><a href="#">이용약관</a><span aria-hidden="true"> | </span><a href="#">개인정보처리방침</a><span aria-hidden="true"> | </span><a href="admin.html" class="site-footer__admin-link">사이트 관리</a></p>
       </div>
     </footer>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        try {
+          var key = (window.WAVES_EMAILJS_PUBLIC_KEY || "").trim();
+          if (key && window.emailjs && typeof window.emailjs.init === "function") {
+            window.emailjs.init({ publicKey: key });
+          }
+        } catch (e) {}
+      })();
+    </script>
     <script src="js/site-settings.js"></script>
     <script src="js/page-boot.js"></script>
     <script src="js/contact-config.js"></script>
