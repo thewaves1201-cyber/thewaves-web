@@ -60,23 +60,29 @@
   function initSwipers() {
     if (typeof Swiper === "undefined") return;
     var heroEl = document.querySelector(".hero-swiper");
-    if (
-      heroEl &&
-      !heroEl.swiper &&
-      heroEl.querySelector(".swiper-slide")
-    ) {
-      new Swiper(heroEl, {
-        loop: true,
+    var heroSlides = heroEl
+      ? heroEl.querySelectorAll(".swiper-wrapper .swiper-slide")
+      : [];
+    if (heroEl && heroSlides.length) {
+      if (heroEl.swiper) {
+        heroEl.swiper.destroy(true, true);
+      }
+      var heroCfg = {
+        loop: false,
+        rewind: heroSlides.length > 1,
         speed: 900,
-        autoplay: {
-          delay: 6500,
-          disableOnInteraction: false,
-        },
         navigation: {
           prevEl: ".hero-swiper__nav--prev",
           nextEl: ".hero-swiper__nav--next",
         },
-      });
+      };
+      if (heroSlides.length > 1) {
+        heroCfg.autoplay = {
+          delay: 6500,
+          disableOnInteraction: false,
+        };
+      }
+      new Swiper(heroEl, heroCfg);
     }
 
     document.querySelectorAll(".band__slider-wrap").forEach(function (wrap) {

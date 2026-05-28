@@ -6,7 +6,7 @@
   var SITE_GALLERY_URL = "data/gallery.json";
   var SITE_INDEX_HERO_URL = "data/index-hero.json";
   /** gallery / hero 배포 시 숫자 올리면 CDN·브라우저 캐시 무효화 */
-  var GALLERY_DEPLOY_REV = "20260528-hero-assets";
+  var GALLERY_DEPLOY_REV = "20260528-hero8fix";
   var GALLERY_REV_KEY = "waves_gallery_rev";
 
   var memoryStore = null;
@@ -1318,18 +1318,7 @@
       });
     }
 
-    var needsIndexHero = !!document.querySelector(
-      '[data-gallery-page="index"][data-gallery-id="hero"]'
-    );
-
     fetchBundledIndexHero(function (fromHero) {
-      if (needsIndexHero && fromHero && fromHero.length) {
-        memoryStore = mergeIndexHeroIntoStore(defaultStore(), fromHero);
-        try {
-          renderIntoPage();
-        } catch (e) {}
-      }
-
       fetchBundledGallery(function (fromSite) {
         applyGallerySources(fromSite, fromHero);
       });
