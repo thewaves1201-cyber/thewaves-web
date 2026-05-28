@@ -19,7 +19,8 @@
    *
    * 내부 IP 사용 시: 같은 Wi‑Fi/LAN, n8n PC 방화벽 5678 허용 필요
    */
-  window.WAVES_CONTACT_WEBHOOK_LOCAL = "";  // 예: http://192.168.0.23:5678/webhook/waves-contact
+  window.WAVES_CONTACT_WEBHOOK_LOCAL =
+    "http://172.30.1.1:5678/webhook/waves-contact";
   window.WAVES_CONTACT_WEBHOOK_PUBLIC = ""; // 예: https://n8n.your-domain.com/webhook/waves-contact
 
   /**
