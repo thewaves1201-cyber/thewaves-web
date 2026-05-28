@@ -247,6 +247,8 @@
 
       if (orbit) {
         slideCount = padSlidesForLoop(wrapper, 10);
+        var musicOrbitSquare =
+          isSquare && wrap.closest && wrap.closest("#music-business");
         var orbitCfg = {
           slidesPerView: 2,
           spaceBetween: 14,
@@ -281,6 +283,22 @@
             },
           },
         };
+        if (musicOrbitSquare) {
+          orbitCfg.breakpoints = {
+            640: {
+              slidesPerView: 4,
+              spaceBetween: 12,
+            },
+            960: {
+              slidesPerView: 5,
+              spaceBetween: 14,
+            },
+            1280: {
+              slidesPerView: 7,
+              spaceBetween: 16,
+            },
+          };
+        }
         if (slideCount > 1) {
           orbitCfg.loop = true;
           orbitCfg.loopAdditionalSlides = 3;

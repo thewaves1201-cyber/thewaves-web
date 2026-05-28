@@ -598,8 +598,19 @@ a {
 }
 
 .gallery-swiper--orbit.gallery-swiper--square .gallery-card-wrap {
-  width: 100%;
-  max-width: none;
+  width: clamp(200px, 18vw, 260px);
+  max-width: 260px;
+}
+
+/* 메인 MUSIC BUSINESS: 1:1이라 같은 슬라이드 폭이면 위 16:9 밴드보다 커 보임 → 썸네일 축소 */
+#music-business .gallery-swiper--orbit .swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+#music-business .gallery-swiper--orbit.gallery-swiper--square .gallery-card-wrap {
+  width: clamp(112px, 9.5vw, 164px);
+  max-width: 164px;
 }
 
 .gallery-swiper:not(.gallery-swiper--musicStrip) .swiper-slide {
