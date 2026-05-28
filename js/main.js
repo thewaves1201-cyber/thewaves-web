@@ -67,16 +67,20 @@
       if (heroEl.swiper) {
         heroEl.swiper.destroy(true, true);
       }
+      var heroCount = heroSlides.length;
       var heroCfg = {
-        loop: false,
-        rewind: heroSlides.length > 1,
+        /* rewind는 8→1 때 7,6,5… 역방향으로 쭉 돌아감. loop는 앞으로 1번으로 넘김 */
+        loop: heroCount > 1,
+        rewind: false,
+        loopAdditionalSlides: 0,
         speed: 900,
         navigation: {
           prevEl: ".hero-swiper__nav--prev",
           nextEl: ".hero-swiper__nav--next",
         },
       };
-      if (heroSlides.length > 1) {
+      if (heroCount > 1) {
+        heroCfg.loopedSlides = heroCount;
         heroCfg.autoplay = {
           delay: 6500,
           disableOnInteraction: false,
