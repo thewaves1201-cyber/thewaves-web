@@ -4,6 +4,8 @@
   var STORAGE_KEY_V1 = "waves_gallery_v1";
   var STORAGE_KEY = "waves_gallery_v2";
   var SITE_GALLERY_URL = "data/gallery.json";
+  /** gallery.json 배포 시 숫자 올리면 CDN·브라우저 캐시 무효화 */
+  var GALLERY_DEPLOY_REV = "20260528-hero8";
   var GALLERY_REV_KEY = "waves_gallery_rev";
 
   var memoryStore = null;
@@ -819,10 +821,23 @@
     }
   }
 
+  function isGalleryAdminPage() {
+    try {
+      var path = (location.pathname || "").toLowerCase();
+      if (/admin(-design)?\.html$/.test(path)) return true;
+      if (document.body && document.body.classList.contains("admin-body")) return true;
+    } catch (e) {}
+    return false;
+  }
+
   function resolveGalleryStore(fromSite, fromLs, fromIdb) {
-    /* 로컬 admin 저장(IndexedDB)이 있으면 우선. pickRicher로 data/gallery.json(용량 큼)이
-       매 새로고침마다 IDB를 덮어 admin 변경이 index에 안 보이던 문제 방지 */
-    if (fromIdb && fromIdb.pages && Object.keys(fromIdb.pages).length) {
+    /* admin 페이지만 IndexedDB 우선(미저장 편집 유지). 공개 페이지는 배포 gallery.json 우선 */
+    if (
+      isGalleryAdminPage() &&
+      fromIdb &&
+      fromIdb.pages &&
+      Object.keys(fromIdb.pages).length
+    ) {
       return ensurePagesShape(fromIdb);
     }
     var store = defaultStore();
@@ -838,7 +853,12 @@
       cb(null);
       return;
     }
-    fetch(SITE_GALLERY_URL, { cache: "no-store" })
+    var url =
+      SITE_GALLERY_URL +
+      (GALLERY_DEPLOY_REV
+        ? "?v=" + encodeURIComponent(GALLERY_DEPLOY_REV)
+        : "");
+    fetch(url, { cache: "no-store" })
       .then(function (res) {
         if (!res.ok) return null;
         return res.json();
@@ -1242,7 +1262,7 @@
           fromIdb
         );
 
-        if (usedIdb) {
+        if (usedIdb && isGalleryAdminPage()) {
           finish(store);
           return;
         }
