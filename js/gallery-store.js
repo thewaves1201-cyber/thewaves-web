@@ -6,7 +6,7 @@
   var SITE_GALLERY_URL = "data/gallery.json";
   var SITE_INDEX_HERO_URL = "data/index-hero.json";
   /** gallery / hero 배포 시 숫자 올리면 CDN·브라우저 캐시 무효화 */
-  var GALLERY_DEPLOY_REV = "20260528-hero-loop";
+  var GALLERY_DEPLOY_REV = "20260529-gallery";
   var GALLERY_REV_KEY = "waves_gallery_rev";
 
   var memoryStore = null;
