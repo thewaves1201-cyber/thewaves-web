@@ -278,6 +278,7 @@
   var pageSelect = document.getElementById("design-page-select");
   var btnSave = document.getElementById("btn-design-save");
   var btnReset = document.getElementById("btn-design-reset");
+  var btnExport = document.getElementById("btn-design-export");
 
   var currentPageId = "index";
 
@@ -442,6 +443,34 @@
     if (barLabel) barLabel.textContent = "미리보기 — " + meta.label;
   }
 
+  function downloadTextFile(filename, text) {
+    var blob = new Blob([text], { type: "application/json;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function buildSitePayloadForExport() {
+    return window.WavesSiteSettings.load();
+  }
+
+  function exportSiteJsonForDeploy() {
+    if (!window.WavesSiteSettings) {
+      showMessage("site-settings 모듈을 불러오지 못했습니다.", "err");
+      return;
+    }
+    var siteText = window.WavesSiteSettings.exportDeploySiteSettings(
+      buildSitePayloadForExport()
+    );
+    downloadTextFile("site.json", siteText);
+    showMessage(
+      "site.json을 내려받았습니다. 프로젝트 data/site.json에 덮어쓴 뒤 git push 하면 thewaves.kr에 반영됩니다.",
+      "ok"
+    );
+  }
+
   function saveDesign() {
     var prev = window.WavesSiteSettings.load();
     var design = readFormDesign();
@@ -461,7 +490,8 @@
     }
     window.WavesSiteSettings.save(next);
     showMessage(
-      getPageMeta(currentPageId).label + " 디자인을 저장했습니다. 해당 페이지를 새로고침하세요.",
+      getPageMeta(currentPageId).label +
+        " 디자인을 저장했습니다. thewaves.kr 반영은 「배포용 site.json」으로 data/에 넣고 push 하세요.",
       "ok"
     );
   }
@@ -521,6 +551,10 @@
 
   if (btnSave) {
     btnSave.addEventListener("click", saveDesign);
+  }
+
+  if (btnExport) {
+    btnExport.addEventListener("click", exportSiteJsonForDeploy);
   }
 
   if (btnReset) {

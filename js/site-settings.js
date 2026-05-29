@@ -3,6 +3,7 @@
 
   var STORAGE_KEY = "waves_site_v1";
   var SITE_DATA_URL = "data/site.json";
+  var SITE_DEPLOY_REV = "20260528-design";
 
   var bundledSiteSettings = null;
   var siteSettingsReady = false;
@@ -749,7 +750,13 @@
       });
       return;
     }
-    fetch(SITE_DATA_URL, { cache: "no-store" })
+    fetch(
+      SITE_DATA_URL +
+        (SITE_DEPLOY_REV
+          ? "?v=" + encodeURIComponent(SITE_DEPLOY_REV)
+          : ""),
+      { cache: "no-store" }
+    )
       .then(function (res) {
         if (!res.ok) return null;
         return res.json();
